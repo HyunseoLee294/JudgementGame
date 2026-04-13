@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 273da58d2fa62c148b427585b356642f, type: 3}
+  m_Name: Dialogue_Main
+  m_EditorClassIdentifier: Assembly-CSharp::SubtitleData
+  lines:
+  - startTime: 0
+    speaker: A
+    text: "\uC548\uB155?"
+  - startTime: 1.17
+    speaker: B
+    text: "\uC548\uB155."
+  - startTime: 2.26
+    speaker: A
+    text: "\uD560 \uB9D0 \uC788\uC5B4?"
+  - startTime: 3.75
+    speaker: B
+    text: "\uC544\uB2C8."
+  - startTime: 4.78
+    speaker: A
+    text: "\uC815\uB9D0?"
+  - startTime: 5.92
+    speaker: B
+    text: "\uC65C \uADF8\uB798, \uAC11\uC790\uAE30."
+  - startTime: 8.17
+    speaker: A
+    text: "\uADF8\uAC8C \uD560 \uB9D0\uC774\uC57C?"
+  - startTime: 10
+    speaker: B
+    text: "\uADF8\uB9CC \uD574!"
+  - startTime: 11.17
+    speaker: A
+    text: "\uADF8\uB798, \uBBF8\uC548."
+  - startTime: 12.86
+    speaker: B
+    text: "...\uBC25\uC740 \uBA39\uC5C8\uC5B4?"
+  - startTime: 14.34
+    speaker: A
+    text: "\uBABB \uBA39\uC5C8\uC5B4."
+  - startTime: 15.84
+    speaker: B
+    text: "\uAC19\uC774 \uBA39\uC744\uB798?"
+  - startTime: 17.33
+    speaker: A
+    text: "\uC544\uB2C8, \uC548 \uBC30\uACE0\uD30C."
+  - startTime: 19.56
+    speaker: B
+    text: "...\uADF8\uB798\uB3C4 \uBA39\uC5B4."
+  - startTime: 20.94
+    speaker: A
+    text: "\uC9C0\uAE08 \uBA87 \uC2DC\uC778\uC9C0 \uC54C\uC544?"
+  - startTime: 23.18
+    speaker: B
+    text: "\uBC25\uC740 \uCC59\uACA8\uBA39\uC5B4\uC57C\uC9C0."
+  - startTime: 25.26
+    speaker: A
+    text: "\uB410\uC5B4."
+  - startTime: 26.36
+    speaker: A
+    text: "\uB0B4\uAC00 \uBB58 \uC783\uC5B4\uBC84\uB838\uC5B4."
