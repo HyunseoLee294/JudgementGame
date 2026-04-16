@@ -5,4 +5,5 @@ using UnityEngine;
 public class SubtitleData : ScriptableObject
 {
     public List<SubtitleLine> lines;
+    public List<DialogueSection> sections;
 }

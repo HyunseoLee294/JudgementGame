@@ -30,6 +30,14 @@ public class SubtitleManager : MonoBehaviour
             return;
         }
 
+        // 현재 시간이 해금 안 된 구간이면 자막 숨기기
+        if (!GameManager.Instance.IsTimeUnlocked(recorderAudio.time))
+        {
+            subtitleText.text = "";
+            currentIndex = -1;
+            return;
+        }
+
         float currentTime = recorderAudio.time;
 
         // 지금 시간에 해당하는 자막 찾기
