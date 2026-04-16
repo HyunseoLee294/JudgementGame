@@ -13,35 +13,32 @@ public class PlayerInteraction : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
-        bool lookingAtInteractable = false;
+        IInteractable currentInteractable = null;
 
         if (Physics.Raycast(ray, out hit, interactionDistance))
         {
-            if (hit.collider.CompareTag("Interactable"))
-            {
-                lookingAtInteractable = true;
-                interactionPrompt.SetActive(true);
-            }
-            else
-            {
-                interactionPrompt.SetActive(false);
-            }
+            // IInteractable 컴포넌트가 있는지 직접 확인
+            currentInteractable = hit.collider.GetComponent<IInteractable>();
+        }
+
+        if (currentInteractable != null)
+        {
+            interactionPrompt.SetActive(true);
         }
         else
         {
             interactionPrompt.SetActive(false);
         }
 
-        // E키 처리는 Raycast 바깥에서
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (recorderUI.recorderPanel.activeSelf)
             {
                 recorderUI.Close();
             }
-            else if (lookingAtInteractable)
+            else if (currentInteractable != null)
             {
-                recorderUI.Open();
+                currentInteractable.Interact();
             }
         }
     }

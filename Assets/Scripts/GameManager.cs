@@ -1,11 +1,18 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;  // 다른 스크립트에서 쉽게 접근
 
     public SubtitleData subtitleData;
+    public AudioSource mainAudio;
+    public AudioSource unlockSfx;
+    public TextMeshProUGUI unlockNotificationText;
+    public float notificationDuration = 2f;
+    public Recorder recorder;
     private HashSet<int> unlockedSections = new HashSet<int>();
 
     void Awake()
@@ -27,11 +34,45 @@ public class GameManager : MonoBehaviour
 
     public void UnlockSection(int sectionId)
     {
-        if (!unlockedSections.Contains(sectionId))
+        if (unlockedSections.Contains(sectionId)) return;
+
+        unlockedSections.Add(sectionId);
+
+        // 해금된 구간 찾기
+        DialogueSection unlockedSection = null;
+        foreach (var section in subtitleData.sections)
         {
-            unlockedSections.Add(sectionId);
-            Debug.Log("구간 해금: " + sectionId);
+            if (section.sectionId == sectionId)
+            {
+                unlockedSection = section;
+                break;
+            }
         }
+
+        if (unlockedSection != null)
+        {
+            recorder.CancelCurrentRoutines();
+            StartCoroutine(UnlockRoutine(unlockedSection));
+        }
+    }
+
+    IEnumerator UnlockRoutine(DialogueSection section)
+    {
+        // 효과음 재생
+        unlockSfx.Play();
+
+        // 알림 텍스트 표시
+        unlockNotificationText.text = section.sectionName + " 발견";
+        unlockNotificationText.gameObject.SetActive(true);
+
+        // 오디오 재생 위치 점프
+        mainAudio.Stop();
+        mainAudio.time = section.startTime;
+        mainAudio.Play();
+
+        // 일정 시간 후 알림 숨기기
+        yield return new WaitForSeconds(notificationDuration);
+        unlockNotificationText.gameObject.SetActive(false);
     }
 
     public bool IsSectionUnlocked(int sectionId)

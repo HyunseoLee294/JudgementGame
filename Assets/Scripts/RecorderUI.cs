@@ -10,12 +10,6 @@ public class RecorderUI : MonoBehaviour
     {
         recorderPanel.SetActive(true);
         crosshair.SetActive(false);  // 점 숨기기
-
-        // 아직 재생 중이 아니면 재생 시작
-        if (!recorderAudio.isPlaying)
-        {
-            recorderAudio.Play();
-        }
     }
 
     public void Close()

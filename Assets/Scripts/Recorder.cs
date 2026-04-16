@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Recorder : MonoBehaviour
+public class Recorder : MonoBehaviour, IInteractable
 {
     public AudioSource mainAudio;
     public AudioSource rewindSfx;
@@ -10,6 +10,8 @@ public class Recorder : MonoBehaviour
     private bool isRewinding = false;
     private bool isSkipping = false;
     private bool hasStarted = false;
+
+    public RecorderUI recorderUI;
 
     void Update()
     {
@@ -38,6 +40,34 @@ public class Recorder : MonoBehaviour
         }
 
     }
+
+    public void Interact()
+    {
+        if (recorderUI.recorderPanel.activeSelf)
+        {
+            recorderUI.Close();
+        }
+        else
+        {
+            recorderUI.Open();
+            // 최초 1회만 재생 시작
+            if (!hasStarted)
+            {
+                mainAudio.Play();
+                hasStarted = true;
+            }
+        }
+    }
+
+    public void CancelCurrentRoutines()
+    {
+        StopAllCoroutines();
+        isRewinding = false;
+        isSkipping = false;
+        rewindSfx.Stop();
+        skipSfx.Stop();
+    }
+    
     IEnumerator SkipRoutine()
     {
         isSkipping = true;

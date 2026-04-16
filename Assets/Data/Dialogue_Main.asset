@@ -92,7 +92,7 @@ MonoBehaviour:
     sectionId: 5
     startTime: 17.33
     endTime: 20.94
-    unlockedByDefault: 1
+    unlockedByDefault: 0
   - sectionName: "6\uBC88"
     sectionId: 6
     startTime: 20.94
@@ -102,4 +102,4 @@ MonoBehaviour:
     sectionId: 7
     startTime: 25.26
     endTime: -1
-    unlockedByDefault: 1
+    unlockedByDefault: 0
