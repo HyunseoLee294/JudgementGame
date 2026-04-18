@@ -7,6 +7,8 @@ public class PlayerInteraction : MonoBehaviour
 
     public RecorderUI recorderUI;
 
+    public Recorder recorder;
+
     // Update is called once per frame
     void Update()
     {
@@ -14,6 +16,11 @@ public class PlayerInteraction : MonoBehaviour
         {
         // UI 열려있으면 상호작용 체크 안 함
         interactionPrompt.SetActive(false);
+                // 패널 열려있을 때 E키로 닫기
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            recorderUI.Close();
+        }
         return;
         }
         
@@ -26,6 +33,15 @@ public class PlayerInteraction : MonoBehaviour
         {
             // IInteractable 컴포넌트가 있는지 직접 확인
             currentInteractable = hit.collider.GetComponent<IInteractable>();
+            // 녹음기 시작 전에는 녹음기만 상호작용 가능
+            if (currentInteractable != null && !recorder.HasStarted())
+            {
+                // Recorder가 아니면 무시
+                if (!(currentInteractable is Recorder))
+                {
+                    currentInteractable = null;
+                }
+            }
         }
 
         if (currentInteractable != null)
@@ -39,11 +55,7 @@ public class PlayerInteraction : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (recorderUI.recorderPanel.activeSelf)
-            {
-                recorderUI.Close();
-            }
-            else if (currentInteractable != null)
+            if (currentInteractable != null)
             {
                 currentInteractable.Interact();
             }

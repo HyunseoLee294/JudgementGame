@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public Recorder recorder;
     private HashSet<int> unlockedSections = new HashSet<int>();
     public DialogueDisplay dialogueDisplay;
+    public PlaybackBarDisplay playbackBarDisplay;
 
     void Awake()
     {
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour
         // 효과음 재생
         unlockSfx.Play();
         dialogueDisplay.RefreshDialogue();
+        playbackBarDisplay.RefreshHatchMarks();
 
         // 알림 텍스트 표시
         unlockNotificationText.text = section.sectionName + " 발견";

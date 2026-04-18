@@ -14,6 +14,7 @@ public class RecorderUI : MonoBehaviour
     public TextMeshProUGUI unlockCountText;
     private bool isDragging = false;
     public DialogueDisplay dialogueDisplay;
+    public PlaybackBarDisplay playbackBarDisplay;
 
 
     public void Open()
@@ -24,6 +25,7 @@ public class RecorderUI : MonoBehaviour
         Cursor.visible = true;
         player.GetComponent<StarterAssets.FirstPersonController>().enabled = false;
         dialogueDisplay.RefreshDialogue();
+        playbackBarDisplay.RefreshHatchMarks();
     }
 
     public void Close()

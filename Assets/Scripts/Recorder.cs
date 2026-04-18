@@ -67,6 +67,11 @@ public class Recorder : MonoBehaviour, IInteractable
         rewindSfx.Stop();
         skipSfx.Stop();
     }
+
+    public bool HasStarted()
+    {
+        return hasStarted;
+    }
     
     IEnumerator SkipRoutine()
     {
