@@ -13,6 +13,7 @@ public class RecorderUI : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI unlockCountText;
     private bool isDragging = false;
+    public DialogueDisplay dialogueDisplay;
 
 
     public void Open()
@@ -22,6 +23,7 @@ public class RecorderUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         player.GetComponent<StarterAssets.FirstPersonController>().enabled = false;
+        dialogueDisplay.RefreshDialogue();
     }
 
     public void Close()
