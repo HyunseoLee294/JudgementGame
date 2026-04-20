@@ -15,7 +15,10 @@ public class Recorder : MonoBehaviour, IInteractable
 
     void Update()
     {
-        if (JudgeManager.Instance != null && JudgeManager.Instance.IsGameplayBlocked()) return;
+        // Intro/Ending에서는 자동 스킵/리와인드 로직 차단
+        // (Judgment 페이즈에는 동작해야 미해금 구간 스킵과 되감기 소리가 정상 재생됨)
+        if (JudgeManager.Instance != null
+            && (JudgeManager.Instance.IsIntro() || JudgeManager.Instance.IsEnding())) return;
 
         if (isRewinding || isSkipping) return;
 
