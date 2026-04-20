@@ -30,6 +30,9 @@ public class JudgeDialogueData : ScriptableObject
         "그래, 신입."
     };
 
+    [Header("엔딩 - 판단 시퀀스 읊기 ({0}에 AABB 같은 기록 삽입)")]
+    [TextArea(1, 3)] public string endingJudgmentSummaryFormat = "{0}라...";
+
     [Header("엔딩 - 판단 패턴별 한 줄 평가")]
     [TextArea(1, 3)] public string endingConsistent    = "일관된 판단을 했군.";      // AAAA / BBBB
     [TextArea(1, 3)] public string endingLastSwitch    = "마지막에 판단이 흔들렸군."; // AAAB / BBBA

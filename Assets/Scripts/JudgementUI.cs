@@ -21,15 +21,24 @@ public class JudgementUI : MonoBehaviour
     public float lineDuration = 3f;
     public KeyCode skipKey = KeyCode.Space;
 
+    [Header("엔딩 검은 화면 오버레이")]
+    public GameObject blackOverlay;
+
     private char selected = ' ';
 
     void Awake()
     {
         if (judgmentPanel) judgmentPanel.SetActive(false);
         if (judgeDialoguePanel) judgeDialoguePanel.SetActive(false);
+        if (blackOverlay) blackOverlay.SetActive(false);
 
         if (buttonA) buttonA.onClick.AddListener(() => Select('A'));
         if (buttonB) buttonB.onClick.AddListener(() => Select('B'));
+    }
+
+    public void SetBlackOverlay(bool on)
+    {
+        if (blackOverlay) blackOverlay.SetActive(on);
     }
 
     void Select(char c)
