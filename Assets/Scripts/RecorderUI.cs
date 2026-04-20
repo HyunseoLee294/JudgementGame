@@ -20,7 +20,17 @@ public class RecorderUI : MonoBehaviour
     public void Open()
     {
         if (JudgeManager.Instance != null && JudgeManager.Instance.IsGameplayBlocked()) return;
-        
+        OpenInternal();
+    }
+
+    // 판단 페이즈 등에서 게임플레이 블록을 무시하고 강제로 여는 용도
+    public void ForceOpen()
+    {
+        OpenInternal();
+    }
+
+    void OpenInternal()
+    {
         if (recorderPanel) recorderPanel.SetActive(true);
         if (crosshair) crosshair.SetActive(false);
         CursorController.Unlock();
