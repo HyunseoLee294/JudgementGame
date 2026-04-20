@@ -27,9 +27,10 @@ public class JudgeManager : MonoBehaviour
 
     // 처음부터 끝까지 한 번 재생된 섹션들
     private readonly HashSet<int> sectionFirstPlayed = new HashSet<int>();
+
     // 해금은 되었지만 아직 "첫 완주"되지 않은 섹션들 (탐색 차단에 사용)
     private readonly HashSet<int> pendingUnheardSections = new HashSet<int>();
-    
+
     void Awake()
     {
         Instance = this;
@@ -56,6 +57,7 @@ public class JudgeManager : MonoBehaviour
     {
         Phase = GamePhase.Intro;
         if (judgementUI != null) judgementUI.SetBlackOverlay(true);
+
         if (judgementUI != null && dialogueData != null)
         {
             yield return judgementUI.ShowJudgeLines(dialogueData.introLines);
@@ -87,6 +89,7 @@ public class JudgeManager : MonoBehaviour
             if (!sectionFirstPlayed.Contains(sid)) return;
         }
 
+        // 즉시 Phase를 Judgment로 전환 (0.3초 대기 중에도 상호작용 차단)
         Phase = NextJudgmentPhase(Phase);
         StartCoroutine(TriggerJudgment());
     }
@@ -110,6 +113,7 @@ public class JudgeManager : MonoBehaviour
 
     IEnumerator TriggerJudgment()
     {
+        // Phase는 이미 NotifySectionFirstPlayed에서 Judgment로 전환됨
         yield return new WaitForSeconds(delayBeforeJudgment);
 
         if (recorder != null) recorder.CancelCurrentRoutines();
@@ -196,7 +200,7 @@ public class JudgeManager : MonoBehaviour
         // 3) 엔딩 대사: opening → 판단 시퀀스 → 패턴 한줄평 → closing
         var lines = new List<string>();
         if (dialogueData.endingOpening != null) lines.AddRange(dialogueData.endingOpening);
-        
+
         string judgmentSummary = BuildJudgmentSummary();
         if (!string.IsNullOrEmpty(judgmentSummary)) lines.Add(judgmentSummary);
 
