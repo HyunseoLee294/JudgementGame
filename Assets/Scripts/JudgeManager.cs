@@ -116,8 +116,8 @@ public class JudgeManager : MonoBehaviour
         // Phase는 이미 NotifySectionFirstPlayed에서 Judgment로 전환됨
         yield return new WaitForSeconds(delayBeforeJudgment);
 
+        // 판단 UI 중에도 녹음기 UI/오디오는 계속 유지
         if (recorder != null) recorder.CancelCurrentRoutines();
-        if (mainAudio != null && mainAudio.isPlaying) mainAudio.Pause();
 
         char choice = ' ';
         if (judgementUI != null && dialogueData != null)
@@ -133,10 +133,6 @@ public class JudgeManager : MonoBehaviour
         if (Phase == GamePhase.Ending)
         {
             StartCoroutine(EndingRoutine());
-        }
-        else
-        {
-            if (mainAudio != null) mainAudio.Play();
         }
     }
 
