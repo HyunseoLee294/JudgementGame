@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public DialogueDisplay dialogueDisplay;
     public PlaybackBarDisplay playbackBarDisplay;
 
+    private int lastReportedSection = -1;
+
     void Awake()
     {
         Instance = this;
@@ -31,6 +33,34 @@ public class GameManager : MonoBehaviour
             {
                 unlockedSections.Add(section.sectionId);
             }
+        }
+    }
+
+    void Update()
+    {
+        if (mainAudio == null || !mainAudio.isPlaying) return;
+
+        float t = mainAudio.time;
+        foreach (var section in subtitleData.sections)
+        {
+            bool inSection = t >= section.startTime &&
+                             (section.endTime < 0 || t < section.endTime);
+            if (!inSection) continue;
+            if (!IsSectionUnlocked(section.sectionId)) return;
+
+            float end = section.endTime < 0
+                ? (mainAudio.clip != null ? mainAudio.clip.length : section.startTime)
+                : section.endTime;
+
+            if (t >= end - 0.05f && lastReportedSection != section.sectionId)
+            {
+                lastReportedSection = section.sectionId;
+                if (JudgeManager.Instance != null)
+                {
+                    JudgeManager.Instance.NotifySectionFirstPlayed(section.sectionId);
+                }
+            }
+            return;
         }
     }
 

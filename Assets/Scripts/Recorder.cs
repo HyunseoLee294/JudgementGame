@@ -15,6 +15,8 @@ public class Recorder : MonoBehaviour, IInteractable
 
     void Update()
     {
+        if (JudgeManager.Instance != null && JudgeManager.Instance.IsGameplayBlocked()) return;
+
         if (isRewinding || isSkipping) return;
 
         // 한 번이라도 재생이 시작됐는데, 지금은 재생 중이 아니면 → 끝난 것
@@ -43,6 +45,8 @@ public class Recorder : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        if (JudgeManager.Instance != null && JudgeManager.Instance.IsIntro()) return;
+        
         if (recorderUI.recorderPanel.activeSelf)
         {
             recorderUI.Close();
