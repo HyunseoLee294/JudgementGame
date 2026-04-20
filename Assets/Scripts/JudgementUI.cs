@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class JudgmentUI : MonoBehaviour
+public class JudgementUI : MonoBehaviour
 {
     [Header("판단 선택창 (A/B)")]
     public GameObject judgmentPanel;
@@ -41,12 +41,14 @@ public class JudgmentUI : MonoBehaviour
 
     public IEnumerator ShowJudgeLines(string[] lines)
     {
-        UnlockCursor();
-        judgeDialoguePanel.SetActive(true);
+        if (lines == null || lines.Length == 0) yield break;
+
+        CursorController.Unlock();
+        if (judgeDialoguePanel) judgeDialoguePanel.SetActive(true);
 
         foreach (var line in lines)
         {
-            judgeDialogueText.text = line;
+            if (judgeDialogueText) judgeDialogueText.text = line;
             float t = 0f;
             while (t < lineDuration && !Input.GetKeyDown(skipKey))
             {
@@ -57,14 +59,14 @@ public class JudgmentUI : MonoBehaviour
             yield return null;
         }
 
-        judgeDialoguePanel.SetActive(false);
-        LockCursor();
+        if (judgeDialoguePanel) judgeDialoguePanel.SetActive(false);
+        CursorController.Lock();
     }
 
     public IEnumerator ShowJudgment(string judgeLine, Action<char> onDecided)
     {
-        UnlockCursor();
-        judgmentPanel.SetActive(true);
+        CursorController.Unlock();
+        if (judgmentPanel) judgmentPanel.SetActive(true);
         if (judgeLineText) judgeLineText.text = judgeLine;
 
         selected = ' ';
@@ -89,19 +91,7 @@ public class JudgmentUI : MonoBehaviour
         }
 
         onDecided?.Invoke(selected);
-        judgmentPanel.SetActive(false);
-        LockCursor();
-    }
-
-    void UnlockCursor()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-
-    void LockCursor()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if (judgmentPanel) judgmentPanel.SetActive(false);
+        CursorController.Lock();
     }
 }

@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public PlaybackBarDisplay playbackBarDisplay;
 
     private int lastReportedSection = -1;
+    private Coroutine notificationRoutine;
 
     void Awake()
     {
@@ -83,7 +84,12 @@ public class GameManager : MonoBehaviour
 
         if (unlockedSection != null)
         {
-            recorder.CancelCurrentRoutines();
+            if (JudgeManager.Instance != null)
+            {
+                JudgeManager.Instance.RegisterUnlock(sectionId);
+            }
+
+            if (recorder != null) recorder.CancelCurrentRoutines();
             StartCoroutine(UnlockRoutine(unlockedSection));
         }
     }
@@ -91,22 +97,43 @@ public class GameManager : MonoBehaviour
     IEnumerator UnlockRoutine(DialogueSection section)
     {
         // 효과음 재생
-        unlockSfx.Play();
-        dialogueDisplay.RefreshDialogue();
-        playbackBarDisplay.RefreshHatchMarks();
+        if (unlockSfx != null) unlockSfx.Play();
+        if (dialogueDisplay != null) dialogueDisplay.RefreshDialogue();
+        if (playbackBarDisplay != null) playbackBarDisplay.RefreshHatchMarks();
 
         // 알림 텍스트 표시
-        unlockNotificationText.text = section.sectionName + " 발견";
-        unlockNotificationText.gameObject.SetActive(true);
+        ShowNotification(section.sectionName + " 발견");
 
         // 오디오 재생 위치 점프
-        mainAudio.Stop();
-        mainAudio.time = section.startTime;
-        mainAudio.Play();
+        if (mainAudio != null)
+        {
+            mainAudio.Stop();
+            mainAudio.time = section.startTime;
+            mainAudio.Play();
+        }
+        yield break;
+    }
 
-        // 일정 시간 후 알림 숨기기
+    // 화면 상단(또는 설정된 위치)에 알림 문구를 notificationDuration초 동안 표시
+    public void ShowNotification(string text)
+    {
+        if (unlockNotificationText == null) return;
+
+        unlockNotificationText.text = text;
+        unlockNotificationText.gameObject.SetActive(true);
+
+        if (notificationRoutine != null) StopCoroutine(notificationRoutine);
+        notificationRoutine = StartCoroutine(HideNotificationAfterDelay());
+    }
+    
+    IEnumerator HideNotificationAfterDelay()
+    {
         yield return new WaitForSeconds(notificationDuration);
-        unlockNotificationText.gameObject.SetActive(false);
+        if (unlockNotificationText != null)
+        {
+            unlockNotificationText.gameObject.SetActive(false);
+        }
+        notificationRoutine = null;
     }
 
     public bool IsSectionUnlocked(int sectionId)

@@ -151,7 +151,8 @@ MonoBehaviour:
   gameManager: {fileID: 903172033}
   recorder: {fileID: 738067362}
   mainAudio: {fileID: 738067361}
-  judgmentUI: {fileID: 366425300}
+  judgementUI: {fileID: 366425300}
+  dialogueData: {fileID: 11400000, guid: 78de8c766ba6b324da58e677dadea01d, type: 2}
   stage1Sections: 01000000
   stage2Sections: 020000000300000004000000
   stage3Sections: 0500000006000000

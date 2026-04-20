@@ -20,26 +20,34 @@ public class RecorderUI : MonoBehaviour
     public void Open()
     {
         if (JudgeManager.Instance != null && JudgeManager.Instance.IsGameplayBlocked()) return;
-        recorderPanel.SetActive(true);
-        crosshair.SetActive(false);  // 점 숨기기
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        player.GetComponent<StarterAssets.FirstPersonController>().enabled = false;
-        dialogueDisplay.RefreshDialogue();
-        playbackBarDisplay.RefreshHatchMarks();
+        
+        if (recorderPanel) recorderPanel.SetActive(true);
+        if (crosshair) crosshair.SetActive(false);
+        CursorController.Unlock();
+        SetPlayerControlEnabled(false);
+        if (dialogueDisplay) dialogueDisplay.RefreshDialogue();
+        if (playbackBarDisplay) playbackBarDisplay.RefreshHatchMarks();
     }
 
     public void Close()
     {
-        recorderPanel.SetActive(false);
-        crosshair.SetActive(true);  // 점 다시 보이기
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        player.GetComponent<StarterAssets.FirstPersonController>().enabled = true;
+        if (recorderPanel) recorderPanel.SetActive(false);
+        if (crosshair) crosshair.SetActive(true);
+        CursorController.Lock();
+        SetPlayerControlEnabled(true);
+    }
+
+    void SetPlayerControlEnabled(bool enabled)
+    {
+        if (!player) return;
+        var fpc = player.GetComponent<StarterAssets.FirstPersonController>();
+        if (fpc) fpc.enabled = enabled;
     }
 
     void Update()
     {
+        if (!recorderPanel) return;
+
         if (recorderPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
             Close();
@@ -53,23 +61,29 @@ public class RecorderUI : MonoBehaviour
 
     void UpdatePlaybackUI()
     {
-        if (recorderAudio.clip == null) return;
+        if (!recorderAudio || recorderAudio.clip == null) return;
 
         float currentTime = recorderAudio.time;
         float totalTime = recorderAudio.clip.length;
 
         // 드래그 중이 아닐 때만 슬라이더 위치 갱신
-        if (!isDragging)
+        if (!isDragging && playbackSlider)
         {
             playbackSlider.value = currentTime / totalTime;
         }
 
         // 시간 텍스트 갱신
-        timeText.text = FormatTime(currentTime) + " / " + FormatTime(totalTime);
+        if (timeText)
+        {
+            timeText.text = FormatTime(currentTime) + " / " + FormatTime(totalTime);
+        }
     }
 
     void UpdateUnlockCount()
     {
+        if (!unlockCountText) return;
+        if (GameManager.Instance == null || GameManager.Instance.subtitleData == null) return;
+
         int unlocked = 0;
         int total = GameManager.Instance.subtitleData.sections.Count;
 
@@ -102,12 +116,13 @@ public class RecorderUI : MonoBehaviour
     {
         isDragging = false;
 
-        if (recorderAudio.clip == null) return;
+        if (!recorderAudio || recorderAudio.clip == null) return;
+        if (!playbackSlider) return;
 
         float targetTime = playbackSlider.value * recorderAudio.clip.length;
 
         // 해금된 구간인지 확인
-        if (GameManager.Instance.IsTimeUnlocked(targetTime))
+        if (GameManager.Instance != null && GameManager.Instance.IsTimeUnlocked(targetTime))
         {
             recorderAudio.time = targetTime;
         }
