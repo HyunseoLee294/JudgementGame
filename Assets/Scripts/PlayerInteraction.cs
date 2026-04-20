@@ -33,13 +33,24 @@ public class PlayerInteraction : MonoBehaviour
         {
             // IInteractable 컴포넌트가 있는지 직접 확인
             currentInteractable = hit.collider.GetComponent<IInteractable>();
-            // 녹음기 시작 전에는 녹음기만 상호작용 가능
-            if (currentInteractable != null && !recorder.HasStarted())
+            if (currentInteractable != null)
             {
-                // Recorder가 아니면 무시
-                if (!(currentInteractable is Recorder))
+                // 녹음기 시작 전에는 녹음기만 상호작용 가능
+                if (!recorder.HasStarted())
                 {
-                    currentInteractable = null;
+                    if (!(currentInteractable is Recorder))
+                    {
+                        currentInteractable = null;
+                    }
+                }
+                // Clue인 경우 선행 조건 체크
+                else if (currentInteractable is Clue)
+                {
+                    Clue clue = (Clue)currentInteractable;
+                    if (!clue.IsAvailable())
+                    {
+                        currentInteractable = null;
+                    }
                 }
             }
         }

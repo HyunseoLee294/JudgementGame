@@ -276,6 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Clue
   sectionIdToUnlock: 7
   clueName: "\uC9C4\uB2E8\uC11C"
+  requiredSections: 0500000006000000
 --- !u!65 &255739191
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -992,6 +993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Clue
   sectionIdToUnlock: 3
   clueName: "\uB3C8\uBD09\uD22C"
+  requiredSections: 
 --- !u!65 &405441670
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2434,6 +2436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Clue
   sectionIdToUnlock: 2
   clueName: "\uBAA9\uAC78\uC774"
+  requiredSections: 
 --- !u!65 &867305339
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2801,6 +2804,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Clue
   sectionIdToUnlock: 6
   clueName: "A\uC758 \uC774\uC720"
+  requiredSections: 020000000300000004000000
 --- !u!65 &912516665
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4255,6 +4259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Clue
   sectionIdToUnlock: 5
   clueName: "\uC784\uB300\uB8CC"
+  requiredSections: 020000000300000004000000
 --- !u!65 &1669464848
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4382,6 +4387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Clue
   sectionIdToUnlock: 4
   clueName: "\uD574\uACE0"
+  requiredSections: 
 --- !u!65 &1698722557
 BoxCollider:
   m_ObjectHideFlags: 0
