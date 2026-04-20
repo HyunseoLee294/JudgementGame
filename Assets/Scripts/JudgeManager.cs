@@ -56,10 +56,14 @@ public class JudgeManager : MonoBehaviour
     IEnumerator IntroRoutine()
     {
         Phase = GamePhase.Intro;
+        if (judgementUI != null) judgementUI.SetBlackOverlay(true);
+
         if (judgementUI != null && dialogueData != null)
         {
             yield return judgementUI.ShowJudgeLines(dialogueData.introLines);
         }
+
+        if (judgementUI != null) judgementUI.SetBlackOverlay(false);
         Phase = GamePhase.Stage1;
     }
 
@@ -85,6 +89,8 @@ public class JudgeManager : MonoBehaviour
             if (!sectionFirstPlayed.Contains(sid)) return;
         }
 
+        // 즉시 Phase를 Judgment로 전환 (0.3초 대기 중에도 상호작용 차단)
+        Phase = NextJudgmentPhase(Phase);
         StartCoroutine(TriggerJudgment());
     }
 
@@ -107,12 +113,11 @@ public class JudgeManager : MonoBehaviour
 
     IEnumerator TriggerJudgment()
     {
+        // Phase는 이미 NotifySectionFirstPlayed에서 Judgment로 전환됨
         yield return new WaitForSeconds(delayBeforeJudgment);
 
         if (recorder != null) recorder.CancelCurrentRoutines();
         if (mainAudio != null && mainAudio.isPlaying) mainAudio.Pause();
-
-        Phase = NextJudgmentPhase(Phase);
 
         char choice = ' ';
         if (judgementUI != null && dialogueData != null)
