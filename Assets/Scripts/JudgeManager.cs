@@ -10,7 +10,8 @@ public class JudgeManager : MonoBehaviour
     public GameManager gameManager;
     public Recorder recorder;
     public AudioSource mainAudio;
-    public JudgmentUI judgmentUI;
+    public JudgementUI judgementUI;
+    public JudgeDialogueData dialogueData;
 
     [Header("단계별 요구 섹션")]
     public int[] stage1Sections = { 1 };
@@ -24,7 +25,11 @@ public class JudgeManager : MonoBehaviour
     public GamePhase Phase { get; private set; } = GamePhase.Intro;
     public List<char> Judgments { get; private set; } = new List<char>();
 
+    // 처음부터 끝까지 한 번 재생된 섹션들
     private readonly HashSet<int> sectionFirstPlayed = new HashSet<int>();
+
+    // 해금은 되었지만 아직 "첫 완주"되지 않은 섹션들 (탐색 차단에 사용)
+    private readonly HashSet<int> pendingUnheardSections = new HashSet<int>();
 
     void Awake()
     {
@@ -33,30 +38,44 @@ public class JudgeManager : MonoBehaviour
 
     void Start()
     {
+        // 기본 해금된 섹션도 "들어야 할 섹션" 목록에 포함
+        if (gameManager != null && gameManager.subtitleData != null)
+        {
+            foreach (var s in gameManager.subtitleData.sections)
+            {
+                if (s.unlockedByDefault)
+                {
+                    pendingUnheardSections.Add(s.sectionId);
+                }
+            }
+        }
+
         StartCoroutine(IntroRoutine());
     }
 
     IEnumerator IntroRoutine()
     {
         Phase = GamePhase.Intro;
-        yield return judgmentUI.ShowJudgeLines(new[]
+        if (judgementUI != null && dialogueData != null)
         {
-            "신입, 견습 판관이 된 걸 축하해.",
-            "사후세계 판관은 일반적인 판사와는 다르지.",
-            "법이 아니라 자네만의 잣대로 판결을 내리면 돼.",
-            "이제, 그 판결을 시뮬레이션으로 연습해보자고.",
-            "자네 첫 사건이네.",
-            "사건명: 녹음기.",
-            "판결: 미정.",
-            "자, 앞의 녹음기를 틀어볼까?"
-        });
+            yield return judgementUI.ShowJudgeLines(dialogueData.introLines);
+        }
         Phase = GamePhase.Stage1;
     }
 
+    // GameManager → UnlockSection 호출 시점에 같이 호출됨
+    public void RegisterUnlock(int sectionId)
+    {
+        if (sectionFirstPlayed.Contains(sectionId)) return; // 이미 완주한 섹션이면 무시
+        pendingUnheardSections.Add(sectionId);
+    }
+
+    // 섹션이 처음부터 끝까지 재생된 시점에 GameManager가 호출
     public void NotifySectionFirstPlayed(int sectionId)
     {
         if (sectionFirstPlayed.Contains(sectionId)) return;
         sectionFirstPlayed.Add(sectionId);
+        pendingUnheardSections.Remove(sectionId);
 
         int[] required = GetRequiredSectionsForCurrentStage();
         if (required == null) return;
@@ -67,6 +86,11 @@ public class JudgeManager : MonoBehaviour
         }
 
         StartCoroutine(TriggerJudgment());
+    }
+
+    public bool HasUnheardUnlocks()
+    {
+        return pendingUnheardSections.Count > 0;
     }
 
     int[] GetRequiredSectionsForCurrentStage()
@@ -85,13 +109,18 @@ public class JudgeManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delayBeforeJudgment);
 
-        recorder.CancelCurrentRoutines();
-        if (mainAudio.isPlaying) mainAudio.Pause();
+        if (recorder != null) recorder.CancelCurrentRoutines();
+        if (mainAudio != null && mainAudio.isPlaying) mainAudio.Pause();
 
         Phase = NextJudgmentPhase(Phase);
 
         char choice = ' ';
-        yield return judgmentUI.ShowJudgment(GetJudgmentLine(Phase), c => choice = c);
+        if (judgementUI != null && dialogueData != null)
+        {
+            string line = dialogueData.GetJudgmentLine(JudgmentStageNumber(Phase));
+            yield return judgementUI.ShowJudgment(line, c => choice = c);
+        }
+        if (choice == ' ') choice = 'A'; // 방어: UI 미설정 시 기본값
         Judgments.Add(choice);
 
         Phase = NextStagePhase(Phase);
@@ -102,8 +131,20 @@ public class JudgeManager : MonoBehaviour
         }
         else
         {
-            mainAudio.Play();
+            if (mainAudio != null) mainAudio.Play();
         }
+    }
+
+    int JudgmentStageNumber(GamePhase p)
+    {
+        switch (p)
+        {
+            case GamePhase.Judgment1: return 1;
+            case GamePhase.Judgment2: return 2;
+            case GamePhase.Judgment3: return 3;
+            case GamePhase.Judgment4: return 4;
+        }
+        return 0;
     }
 
     GamePhase NextJudgmentPhase(GamePhase s)
@@ -130,34 +171,22 @@ public class JudgeManager : MonoBehaviour
         return j;
     }
 
-    string GetJudgmentLine(GamePhase p)
-    {
-        switch (p)
-        {
-            case GamePhase.Judgment1: return "누가 더, 잘못한 사람 같나?";
-            case GamePhase.Judgment2: return "누가 더 잘못했나? 판단해라.";
-            case GamePhase.Judgment3: return "잘못한 사람을 선택해라.";
-            case GamePhase.Judgment4: return "마지막 판단이네. 어떤 사람을 처벌해야 하나?";
-        }
-        return "";
-    }
-
     IEnumerator EndingRoutine()
     {
-        yield return judgmentUI.ShowJudgeLines(new[]
-        {
-            "그래, 신입.",
-            AnalyzePattern(),
-            "이번 훈련, 수고했어.",
-            "판단이란 건, 언제나 부족한 정보 속에서 내리는 거야.",
-            "다음에는 더 나은 판결을 내리길.",
-            "아, 그래서 진짜 판결은 어떻게 나왔냐고?",
-            "미정, 이라네."
-        });
+        if (judgementUI == null || dialogueData == null) yield break;
+
+        var lines = new List<string>();
+        if (dialogueData.endingOpening != null) lines.AddRange(dialogueData.endingOpening);
+        lines.Add(AnalyzePattern());
+        if (dialogueData.endingClosing != null) lines.AddRange(dialogueData.endingClosing);
+
+        yield return judgementUI.ShowJudgeLines(lines.ToArray());
     }
 
     string AnalyzePattern()
     {
+        if (dialogueData == null) return "";
+
         string s = new string(Judgments.ToArray());
         int changes = 0;
         for (int i = 1; i < s.Length; i++)
@@ -165,11 +194,11 @@ public class JudgeManager : MonoBehaviour
             if (s[i] != s[i - 1]) changes++;
         }
 
-        if (changes >= 2) return "판단에 변화가 많았군.";
-        if (s == "AAAA" || s == "BBBB") return "일관된 판단을 했군.";
-        if (s == "AAAB" || s == "BBBA") return "마지막에 판단이 흔들렸군.";
-        if (s == "AABB" || s == "BBAA") return "중간에 판단을 바꿨군.";
-        if (s == "ABBB" || s == "BAAA") return "처음에는 흔들렸군.";
+        if (changes >= 2) return dialogueData.endingManyChanges;
+        if (s == "AAAA" || s == "BBBB") return dialogueData.endingConsistent;
+        if (s == "AAAB" || s == "BBBA") return dialogueData.endingLastSwitch;
+        if (s == "AABB" || s == "BBAA") return dialogueData.endingMiddleSwitch;
+        if (s == "ABBB" || s == "BAAA") return dialogueData.endingFirstSwitch;
         return "";
     }
 

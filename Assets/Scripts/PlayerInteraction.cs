@@ -17,19 +17,19 @@ public class PlayerInteraction : MonoBehaviour
             interactionPrompt.SetActive(false);
             return;
         }
-        
+
         if (recorderUI.recorderPanel.activeSelf)
         {
-        // UI 열려있으면 상호작용 체크 안 함
-        interactionPrompt.SetActive(false);
-                // 패널 열려있을 때 E키로 닫기
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            recorderUI.Close();
+            // UI 열려있으면 상호작용 체크 안 함
+            interactionPrompt.SetActive(false);
+            // 패널 열려있을 때 E키로 닫기
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                recorderUI.Close();
+            }
+            return;
         }
-        return;
-        }
-        
+
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
@@ -48,6 +48,13 @@ public class PlayerInteraction : MonoBehaviour
                     {
                         currentInteractable = null;
                     }
+                }
+                // 새로 해금된 섹션을 아직 한 번도 다 듣지 않았으면 녹음기 외 상호작용 불가
+                else if (JudgeManager.Instance != null
+                         && JudgeManager.Instance.HasUnheardUnlocks()
+                         && !(currentInteractable is Recorder))
+                {
+                    currentInteractable = null;
                 }
                 // Clue인 경우 선행 조건 체크
                 else if (currentInteractable is Clue)
