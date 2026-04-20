@@ -48,7 +48,10 @@ public class RecorderUI : MonoBehaviour
     {
         if (!recorderPanel) return;
 
-        if (recorderPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        // 판단 UI 중에는 ESC로 닫기 차단
+        bool blocked = JudgeManager.Instance != null && JudgeManager.Instance.IsGameplayBlocked();
+
+        if (!blocked && recorderPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
             Close();
         }
