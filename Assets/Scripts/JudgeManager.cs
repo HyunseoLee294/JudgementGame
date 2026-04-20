@@ -55,10 +55,13 @@ public class JudgeManager : MonoBehaviour
     IEnumerator IntroRoutine()
     {
         Phase = GamePhase.Intro;
+        if (judgementUI != null) judgementUI.SetBlackOverlay(true);
         if (judgementUI != null && dialogueData != null)
         {
             yield return judgementUI.ShowJudgeLines(dialogueData.introLines);
         }
+
+        if (judgementUI != null) judgementUI.SetBlackOverlay(false);
         Phase = GamePhase.Stage1;
     }
 
@@ -84,6 +87,7 @@ public class JudgeManager : MonoBehaviour
             if (!sectionFirstPlayed.Contains(sid)) return;
         }
 
+        Phase = NextJudgmentPhase(Phase);
         StartCoroutine(TriggerJudgment());
     }
 
@@ -110,8 +114,6 @@ public class JudgeManager : MonoBehaviour
 
         if (recorder != null) recorder.CancelCurrentRoutines();
         if (mainAudio != null && mainAudio.isPlaying) mainAudio.Pause();
-
-        Phase = NextJudgmentPhase(Phase);
 
         char choice = ' ';
         if (judgementUI != null && dialogueData != null)
@@ -174,12 +176,48 @@ public class JudgeManager : MonoBehaviour
     {
         if (judgementUI == null || dialogueData == null) yield break;
 
+        // 1) 검은 화면 켜기
+        judgementUI.SetBlackOverlay(true);
+
+        // 2) 오디오를 처음부터 끝까지 한 번 재생 (자막은 기존 SubtitleManager가 표시)
+        if (recorder != null) recorder.CancelCurrentRoutines();
+        if (mainAudio != null)
+        {
+            mainAudio.Stop();
+            mainAudio.time = 0f;
+            mainAudio.Play();
+
+            while (mainAudio.isPlaying)
+            {
+                yield return null;
+            }
+        }
+
+        // 3) 엔딩 대사: opening → 판단 시퀀스 → 패턴 한줄평 → closing
         var lines = new List<string>();
         if (dialogueData.endingOpening != null) lines.AddRange(dialogueData.endingOpening);
-        lines.Add(AnalyzePattern());
+        
+        string judgmentSummary = BuildJudgmentSummary();
+        if (!string.IsNullOrEmpty(judgmentSummary)) lines.Add(judgmentSummary);
+
+        string patternLine = AnalyzePattern();
+        if (!string.IsNullOrEmpty(patternLine)) lines.Add(patternLine);
+
         if (dialogueData.endingClosing != null) lines.AddRange(dialogueData.endingClosing);
 
         yield return judgementUI.ShowJudgeLines(lines.ToArray());
+
+        // 엔딩 대사 종료 후 검은 화면은 그대로 유지
+    }
+
+    string BuildJudgmentSummary()
+    {
+        if (dialogueData == null) return "";
+        if (string.IsNullOrEmpty(dialogueData.endingJudgmentSummaryFormat)) return "";
+        if (Judgments == null || Judgments.Count == 0) return "";
+
+        string seq = new string(Judgments.ToArray());
+        return string.Format(dialogueData.endingJudgmentSummaryFormat, seq);
     }
 
     string AnalyzePattern()
