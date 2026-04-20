@@ -119,6 +119,12 @@ public class JudgeManager : MonoBehaviour
         // 판단 UI 중에도 녹음기 UI/오디오는 계속 유지
         if (recorder != null) recorder.CancelCurrentRoutines();
 
+        // 판단 UI가 뜰 때 녹음기 UI가 닫혀 있었다면 강제로 열기
+        if (recorder != null && recorder.recorderUI != null)
+        {
+            recorder.recorderUI.ForceOpen();
+        }
+
         char choice = ' ';
         if (judgementUI != null && dialogueData != null)
         {
