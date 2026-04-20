@@ -17,7 +17,7 @@ public class PlayerInteraction : MonoBehaviour
             interactionPrompt.SetActive(false);
             return;
         }
-
+        
         if (recorderUI.recorderPanel.activeSelf)
         {
         // UI 열려있으면 상호작용 체크 안 함

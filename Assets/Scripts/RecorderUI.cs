@@ -20,7 +20,6 @@ public class RecorderUI : MonoBehaviour
     public void Open()
     {
         if (JudgeManager.Instance != null && JudgeManager.Instance.IsGameplayBlocked()) return;
-
         recorderPanel.SetActive(true);
         crosshair.SetActive(false);  // 점 숨기기
         Cursor.lockState = CursorLockMode.None;
