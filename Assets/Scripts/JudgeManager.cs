@@ -129,6 +129,10 @@ public class JudgeManager : MonoBehaviour
             string line = dialogueData.GetJudgmentLine(JudgmentStageNumber(Phase));
             yield return judgementUI.ShowJudgment(line, c => choice = c);
         }
+        if (recorder != null && recorder.recorderUI != null)
+        {
+            recorder.recorderUI.Close();
+        }
         if (choice == ' ') choice = 'A'; // 방어: UI 미설정 시 기본값
         Judgments.Add(choice);
 
