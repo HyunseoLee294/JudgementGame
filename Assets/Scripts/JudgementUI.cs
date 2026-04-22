@@ -43,9 +43,9 @@ public class JudgementUI : MonoBehaviour
 
     void Select(char c)
     {
-        selected = c;
-        if (nameAText) nameAText.fontStyle = (c == 'A') ? FontStyles.Bold : FontStyles.Normal;
-        if (nameBText) nameBText.fontStyle = (c == 'B') ? FontStyles.Bold : FontStyles.Normal;
+        selected = (selected == c) ? ' ' : c;
+        if (nameAText) nameAText.fontStyle = (selected == 'A') ? FontStyles.Bold : FontStyles.Normal;
+        if (nameBText) nameBText.fontStyle = (selected == 'B') ? FontStyles.Bold : FontStyles.Normal;
     }
 
     public IEnumerator ShowJudgeLines(string[] lines)
