@@ -14,59 +14,27 @@ public class SubtitleManager : MonoBehaviour
 
     private int currentIndex = -1;
 
+    void Start()
+    {
+        HideSubtitle();
+        if (subtitleText != null)
+        {
+            subtitleText.gameObject.SetActive(false);
+        }
+    }
     void Update()
     {
-        // 녹음기 UI가 열려있으면 자막 숨기기
-        if (recorderPanel.activeSelf)
+        // 하단 자막 기능을 사용하지 않으므로 항상 숨김 유지
+        HideSubtitle();
+    }
+
+    void HideSubtitle()
+    {
+        if (subtitleText != null)
         {
             subtitleText.text = "";
-            currentIndex = -1; // 리셋
-            return;
-        }
-        
-        if (!recorderAudio.isPlaying)
-        {
-            subtitleText.text = "";
-            return;
         }
 
-        // 현재 시간이 해금 안 된 구간이면 자막 숨기기
-        if (!GameManager.Instance.IsTimeUnlocked(recorderAudio.time))
-        {
-            subtitleText.text = "";
-            currentIndex = -1;
-            return;
-        }
-
-        float currentTime = recorderAudio.time;
-
-        // 지금 시간에 해당하는 자막 찾기
-        int newIndex = -1;
-        for (int i = 0; i < subtitleData.lines.Count; i++)
-        {
-            if (currentTime >= subtitleData.lines[i].startTime)
-            {
-                newIndex = i;
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        // 자막이 바뀌었을 때만 업데이트
-        if (newIndex != currentIndex)
-        {
-            currentIndex = newIndex;
-            if (newIndex >= 0)
-            {
-                SubtitleLine line = subtitleData.lines[newIndex];
-                subtitleText.text = line.speaker + ": " + line.text;
-            }
-            else
-            {
-                subtitleText.text = "";
-            }
-        }
+        currentIndex = -1;
     }
 }
