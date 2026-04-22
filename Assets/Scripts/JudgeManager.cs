@@ -116,10 +116,8 @@ public class JudgeManager : MonoBehaviour
         // Phase는 이미 NotifySectionFirstPlayed에서 Judgment로 전환됨
         yield return new WaitForSeconds(delayBeforeJudgment);
 
-        // 판단 UI 중에도 녹음기 UI/오디오는 계속 유지
-        if (recorder != null) recorder.CancelCurrentRoutines();
-
         // 판단 UI가 뜰 때 녹음기 UI가 닫혀 있었다면 강제로 열기
+        // (오디오 재생/스킵/리와인드는 그대로 돌도록 CancelCurrentRoutines는 호출하지 않음)
         if (recorder != null && recorder.recorderUI != null)
         {
             recorder.recorderUI.ForceOpen();
@@ -258,5 +256,10 @@ public class JudgeManager : MonoBehaviour
     public bool IsIntro()
     {
         return Phase == GamePhase.Intro;
+    }
+
+    public bool IsEnding()
+    {
+        return Phase == GamePhase.Ending;
     }
 }
