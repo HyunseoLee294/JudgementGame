@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -17,15 +16,62 @@ public class SubtitleManager : MonoBehaviour
     void Start()
     {
         HideSubtitle();
-        if (subtitleText != null)
-        {
-            subtitleText.gameObject.SetActive(false);
-        }
     }
+        
     void Update()
     {
-        // 하단 자막 기능을 사용하지 않으므로 항상 숨김 유지
-        HideSubtitle();
+        if (JudgeManager.Instance == null || !JudgeManager.Instance.IsEnding())
+        {
+            HideSubtitle();
+            return;
+        }
+
+        if (recorderPanel != null && recorderPanel.activeSelf)
+        {
+            HideSubtitle();
+            return;
+        }
+
+        if (recorderAudio == null || !recorderAudio.isPlaying)
+        {
+            HideSubtitle();
+            return;
+        }
+
+        ShowEndingSubtitle();
+    }
+
+    void ShowEndingSubtitle()
+    {
+        if (subtitleText == null || subtitleData == null) return;
+
+        if (!subtitleText.gameObject.activeSelf)
+        {
+            subtitleText.gameObject.SetActive(true);
+        }
+
+        float currentTime = recorderAudio.time;
+        int newIndex = -1;
+
+        for (int i = 0; i < subtitleData.lines.Count; i++)
+        {
+            if (currentTime >= subtitleData.lines[i].startTime)
+            {
+                newIndex = i;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        if (newIndex != currentIndex)
+        {
+            currentIndex = newIndex;
+            subtitleText.text = newIndex >= 0
+                ? subtitleData.lines[newIndex].speaker + ": " + subtitleData.lines[newIndex].text
+                : "";
+        }
     }
 
     void HideSubtitle()
@@ -33,6 +79,10 @@ public class SubtitleManager : MonoBehaviour
         if (subtitleText != null)
         {
             subtitleText.text = "";
+            if (subtitleText.gameObject.activeSelf)
+            {
+                subtitleText.gameObject.SetActive(false);
+            }
         }
 
         currentIndex = -1;
