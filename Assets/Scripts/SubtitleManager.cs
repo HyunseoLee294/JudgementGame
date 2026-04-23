@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-
+using System.Collections;
 
 
 public class SubtitleManager : MonoBehaviour
@@ -10,8 +10,11 @@ public class SubtitleManager : MonoBehaviour
     public SubtitleData subtitleData;
 
     public GameObject recorderPanel;
+    public float judgmentFeedbackDuration = 1.5f;
+
 
     private int currentIndex = -1;
+    private Coroutine temporaryMessageRoutine;
 
     void Start()
     {
@@ -76,6 +79,8 @@ public class SubtitleManager : MonoBehaviour
 
     void HideSubtitle()
     {
+        if (temporaryMessageRoutine != null) return;
+
         if (subtitleText != null)
         {
             subtitleText.text = "";
@@ -86,5 +91,30 @@ public class SubtitleManager : MonoBehaviour
         }
 
         currentIndex = -1;
+    }
+
+    public IEnumerator ShowTemporaryMessage(string message)
+    {
+        if (subtitleText == null) yield break;
+
+        if (temporaryMessageRoutine != null)
+        {
+            StopCoroutine(temporaryMessageRoutine);
+        }
+
+        temporaryMessageRoutine = StartCoroutine(ShowTemporaryMessageRoutine(message));
+        yield return temporaryMessageRoutine;
+    }
+
+    IEnumerator ShowTemporaryMessageRoutine(string message)
+    {
+        subtitleText.gameObject.SetActive(true);
+        subtitleText.text = message;
+        currentIndex = -1;
+
+        yield return new WaitForSeconds(judgmentFeedbackDuration);
+
+        temporaryMessageRoutine = null;
+        HideSubtitle();
     }
 }

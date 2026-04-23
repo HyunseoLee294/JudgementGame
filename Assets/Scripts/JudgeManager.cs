@@ -136,6 +136,15 @@ public class JudgeManager : MonoBehaviour
         if (choice == ' ') choice = 'A'; // 방어: UI 미설정 시 기본값
         Judgments.Add(choice);
 
+        if (Phase != GamePhase.Judgment4)
+        {
+            SubtitleManager subtitleManager = FindObjectOfType<SubtitleManager>();
+            if (subtitleManager != null)
+            {
+                yield return subtitleManager.ShowTemporaryMessage(choice + ", 알겠네.");
+            }
+        }
+
         Phase = NextStagePhase(Phase);
 
         if (Phase == GamePhase.Ending)
