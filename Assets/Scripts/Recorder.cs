@@ -10,6 +10,7 @@ public class Recorder : MonoBehaviour, IInteractable
     private bool isRewinding = false;
     private bool isSkipping = false;
     private bool hasStarted = false;
+    private bool wasUiOpen = false;
 
     public RecorderUI recorderUI;
 
@@ -19,6 +20,27 @@ public class Recorder : MonoBehaviour, IInteractable
         // (Judgment 페이즈에는 동작해야 미해금 구간 스킵과 되감기 소리가 정상 재생됨)
         if (JudgeManager.Instance != null
             && (JudgeManager.Instance.IsIntro() || JudgeManager.Instance.IsEnding())) return;
+
+        // 녹음기 UI가 켜져 있을 때만 루프(자동 되감기/스킵) 동작
+        bool uiOpen = recorderUI != null
+            && recorderUI.recorderPanel != null
+            && recorderUI.recorderPanel.activeSelf;
+
+        // UI가 막 닫힌 순간 → 오디오/코루틴 정지
+        if (wasUiOpen && !uiOpen)
+        {
+            bool playingUnlock = GameManager.Instance != null
+            && GameManager.Instance.isPlayingUnlockSection;
+
+            if (!playingUnlock)
+            {
+                CancelCurrentRoutines();
+                if (mainAudio.isPlaying) mainAudio.Pause();
+            }
+        }
+        wasUiOpen = uiOpen;
+
+        if (!uiOpen) return;
 
         if (isRewinding || isSkipping) return;
 
@@ -53,6 +75,8 @@ public class Recorder : MonoBehaviour, IInteractable
         if (recorderUI.recorderPanel.activeSelf)
         {
             recorderUI.Close();
+            CancelCurrentRoutines();   // rewind/skip 코루틴 + SFX 정리
+            mainAudio.Pause();         // 메인 오디오도 정지
         }
         else
         {
@@ -62,6 +86,10 @@ public class Recorder : MonoBehaviour, IInteractable
             {
                 mainAudio.Play();
                 hasStarted = true;
+            }
+            else
+            {
+                mainAudio.UnPause();   // 다시 열면 이어서 재생
             }
         }
     }

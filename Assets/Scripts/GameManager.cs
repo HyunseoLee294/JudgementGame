@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     private int lastReportedSection = -1;
     private Coroutine notificationRoutine;
 
+    public bool isPlayingUnlockSection { get; private set; } = false;
+
     void Awake()
     {
         Instance = this;
@@ -104,14 +106,41 @@ public class GameManager : MonoBehaviour
         // 알림 텍스트 표시
         ShowNotification(section.sectionName + " 발견");
 
-        // 오디오 재생 위치 점프
-        if (mainAudio != null)
+        if (mainAudio == null) yield break;
+
+        mainAudio.Stop();
+        mainAudio.time = section.startTime;
+        mainAudio.Play();
+
+        isPlayingUnlockSection = true;
+
+        float endTime = section.endTime < 0
+            ? (mainAudio.clip != null ? mainAudio.clip.length : section.startTime)
+            : section.endTime;
+
+        // 새로 해금된 구간이 끝날 때까지 대기
+        while (mainAudio.isPlaying && mainAudio.time < endTime)
+            yield return null;
+
+        isPlayingUnlockSection = false;
+
+        bool uiOpen = recorder != null
+            && recorder.recorderUI != null
+            && recorder.recorderUI.recorderPanel != null
+            && recorder.recorderUI.recorderPanel.activeSelf;
+
+        // 판단 페이즈가 시작되는 경우에는 오디오를 그대로 둠
+        // (TriggerJudgment가 0.3초 뒤 UI를 ForceOpen해서 흐름을 이어감)
+        bool judgmentStarting = JudgeManager.Instance != null
+            && (JudgeManager.Instance.Phase == GamePhase.Judgment1
+             || JudgeManager.Instance.Phase == GamePhase.Judgment2
+             || JudgeManager.Instance.Phase == GamePhase.Judgment3
+             || JudgeManager.Instance.Phase == GamePhase.Judgment4);
+
+        if (!judgmentStarting && !uiOpen && mainAudio.isPlaying)
         {
-            mainAudio.Stop();
-            mainAudio.time = section.startTime;
-            mainAudio.Play();
+            mainAudio.Pause();
         }
-        yield break;
     }
 
     // 화면 상단(또는 설정된 위치)에 알림 문구를 notificationDuration초 동안 표시
