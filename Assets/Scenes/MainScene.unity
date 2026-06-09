@@ -1102,6 +1102,7 @@ MonoBehaviour:
   subtitleText: {fileID: 599005464}
   subtitleData: {fileID: 11400000, guid: 841582ff445680443947d6a1ae4ac75f, type: 2}
   recorderPanel: {fileID: 388354581}
+  judgmentFeedbackDuration: 1.5
 --- !u!114 &366425298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2583,7 +2584,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 7168be5a3d8eb084f833a965f287d54b, type: 3}
+  m_Resource: {fileID: 8300000, guid: 27d4b4bff4428b749b4eaed4f84836fe, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
