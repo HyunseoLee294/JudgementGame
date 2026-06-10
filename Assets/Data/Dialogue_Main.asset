@@ -16,90 +16,590 @@ MonoBehaviour:
   - startTime: 0
     speaker: A
     text: "\uC548\uB155?"
-  - startTime: 1.17
+  - startTime: 1.13
     speaker: B
     text: "\uC548\uB155."
-  - startTime: 2.26
+  - startTime: 2.1
     speaker: A
     text: "\uD560 \uB9D0 \uC788\uC5B4?"
-  - startTime: 3.75
+  - startTime: 2.95
     speaker: B
     text: "\uC544\uB2C8."
-  - startTime: 4.78
+  - startTime: 3.9
     speaker: A
     text: "\uC815\uB9D0?"
-  - startTime: 5.92
+  - startTime: 4.94
     speaker: B
     text: "\uC65C \uADF8\uB798, \uAC11\uC790\uAE30."
-  - startTime: 8.17
+  - startTime: 6
     speaker: A
     text: "\uADF8\uAC8C \uD560 \uB9D0\uC774\uC57C?"
-  - startTime: 10
+  - startTime: 7
     speaker: B
-    text: "\uADF8\uB9CC \uD574!"
-  - startTime: 11.17
+    text: "\uBB50...?"
+  - startTime: 7.76
     speaker: A
     text: "\uADF8\uB798, \uBBF8\uC548."
-  - startTime: 12.86
+  - startTime: 10.5
     speaker: B
-    text: "...\uBC25\uC740 \uBA39\uC5C8\uC5B4?"
-  - startTime: 14.34
+    text: "\uBC25\uC740 \uBA39\uC5C8\uC5B4?"
+  - startTime: 11.34
     speaker: A
     text: "\uBABB \uBA39\uC5C8\uC5B4."
-  - startTime: 15.84
+  - startTime: 12.47
     speaker: B
-    text: "\uAC19\uC774 \uBA39\uC744\uB798?"
-  - startTime: 17.33
+    text: "\uC5B4\uC81C\uB3C4 \uC548 \uBA39\uC5C8\uC796\uC544."
+  - startTime: 15.66
     speaker: A
     text: "\uC544\uB2C8, \uC548 \uBC30\uACE0\uD30C."
-  - startTime: 19.56
+  - startTime: 17.68
     speaker: B
-    text: "...\uADF8\uB798\uB3C4 \uBA39\uC5B4."
-  - startTime: 20.94
-    speaker: A
-    text: "\uC9C0\uAE08 \uBA87 \uC2DC\uC778\uC9C0 \uC54C\uC544?"
-  - startTime: 23.18
+    text: "\uADF8\uB798\uB3C4 \uBA39\uC5B4."
+  - startTime: 18.87
     speaker: B
     text: "\uBC25\uC740 \uCC59\uACA8\uBA39\uC5B4\uC57C\uC9C0."
-  - startTime: 25.26
+  - startTime: 20.12
     speaker: A
     text: "\uB410\uC5B4."
-  - startTime: 26.36
+  - startTime: 21.03
+    speaker: B
+    text: "\uB108 \uB9E8\uB0A0 \uC5B4\uB514 \uB2E4\uB2C8\uB290\uB77C \uBC25 \uC548
+      \uBA39\uC796\uC544."
+  - startTime: 23.26
+    speaker: A
+    text: "\uC81C\uBC1C \uADF8\uB9CC\uD574."
+  - startTime: 24.45
+    speaker: B
+    text: "\uB124\uAC00 \uB9E8\uB0A0 \uBD88\uC548\uBD88\uC548\uD558\uAC8C \uB2E4\uB2C8\uB2C8\uAE4C
+      \uADF8\uB807\uC9C0."
+  - startTime: 26.6
     speaker: A
     text: "\uB0B4\uAC00 \uBB58 \uC783\uC5B4\uBC84\uB838\uC5B4."
+  - startTime: 29.45
+    speaker: B
+    text: "\uADF8\uB798?"
+  - startTime: 30.38
+    speaker: B
+    text: "\uC783\uC5B4\uBC84\uB838\uC5B4?"
+  - startTime: 31.17
+    speaker: A
+    text: "\uC751. \uC54C\uACE0 \uC788\uC5C8\uC5B4?"
+  - startTime: 33.6
+    speaker: B
+    text: "\uB0B4\uAC00 \uC5B4\uB5BB\uAC8C?"
+  - startTime: 34.39
+    speaker: A
+    text: "\uADF8\uAC8C \uC544\uB2C8\uB77C, \uADF8\uAC8C \uBB34\uC2A8 \uBB3C\uAC74\uC778\uC9C0
+      \uC54C\uACE0 \uC788\uC5C8\uB0D0\uACE0."
+  - startTime: 38.48
+    speaker: B
+    text: "\uC5B4, \uBB3C\uAC74? \uC544, \uBB50\uC600\uB294\uB370?"
+  - startTime: 41.11
+    speaker: A
+    text: "\uD560\uBA38\uB2C8 \uBAA9\uAC78\uC774."
+  - startTime: 42.92
+    speaker: B
+    text: "\uC544, \uC5B4... \uBAA9\uAC78\uC774."
+  - startTime: 45.55
+    speaker: A
+    text: "\uB3CC\uC544\uAC00\uC2DC\uAE30 \uC804\uC5D0 \uB098\uD55C\uD14C \uC120\uBB3C\uD574\uC8FC\uC2E0
+      \uAC70."
+  - startTime: 48.32
+    speaker: B
+    text: "\uC74C... \uC9C0\uAE08 \uCC3E\uC790\uACE0? \uB098 \uC880 \uD53C\uACE4\uD55C\uB370."
+  - startTime: 51.77
+    speaker: A
+    text: "\uC57C!"
+  - startTime: 53.59
+    speaker: B
+    text: "\uC5B4\uB514\uC11C \uB9C8\uC9C0\uB9C9\uC73C\uB85C \uBD24\uC5B4?"
+  - startTime: 55.4
+    speaker: A
+    text: "\uB9C8\uC9C0\uB9C9\uC73C\uB85C\uB294 \uBAA9\uAC78\uC774 \uB123\uC5B4\uB450\uB294
+      \uC0C1\uC790\uC5D0 \uC788\uC5C8\uC5B4."
+  - startTime: 58.27
+    speaker: A
+    text: "\uBD24\uC5B4?"
+  - startTime: 59.21
+    speaker: B
+    text: "\uC544\uB2C8?"
+  - startTime: 59.95
+    speaker: A
+    text: "\uC815\uB9D0?"
+  - startTime: 60.53
+    speaker: B
+    text: "\uBABB \uBD24\uC5B4."
+  - startTime: 61.27
+    speaker: A
+    text: "\uC74C, \uADF8\uB807\uAD6C\uB098."
+  - startTime: 62.63
+    speaker: B
+    text: "\uC783\uC5B4\uBC84\uB9B0 \uAC70 \uB9DE\uC544?"
+  - startTime: 63.75
+    speaker: A
+    text: "\uC65C?"
+  - startTime: 64.72
+    speaker: B
+    text: "\uC544\uB2C8, \uB108 \uC774\uC0C1\uD558\uC796\uC544."
+  - startTime: 66.85
+    speaker: A
+    text: "\uB0B4\uAC00 \uC774\uC0C1\uD558\uB2E4\uACE0?"
+  - startTime: 68.17
+    speaker: B
+    text: "\uB098 \uBC24\uC0C8 \uB3D9\uC0DD \uCC59\uAE30\uACE0 \uB4E4\uC5B4\uC654\uC5B4."
+  - startTime: 70.44
+    speaker: B
+    text: "\uB098\uD55C\uD14C \uC774\uB7EC\uC9C0\uB9C8."
+  - startTime: 71.35
+    speaker: A
+    text: "\uB124\uAC00 \uC54C\uACE0 \uC788\uB294\uC9C0 \uAD81\uAE08\uD588\uC5B4."
+  - startTime: 73.16
+    speaker: B
+    text: "\uBB50\uB97C?"
+  - startTime: 73.61
+    speaker: A
+    text: "\uBAA9\uAC78\uC774\uB97C."
+  - startTime: 76.12
+    speaker: B
+    text: "\uADF8\uB798\uC11C \uBB50 \uC5B4\uCA4C\uB77C\uACE0. \uB108 \uC124\uB9C8..."
+  - startTime: 78.84
+    speaker: A
+    text: "\uC124\uB9C8 \uBB50."
+  - startTime: 80.02
+    speaker: B
+    text: "\uB0A0 \uC758\uC2EC\uD574? \uD5C8... \uB108 \uC9C4\uC9DC."
+  - startTime: 83.08
+    speaker: A
+    text: "\uB09C \uB110 \uBBFF\uACE0 \uC2F6\uC5B4."
+  - startTime: 84.53
+    speaker: B
+    text: "\uB124\uAC00 \uB098\uD55C\uD14C \uC5B4\uB5BB\uAC8C \uC774\uB798?"
+  - startTime: 85.93
+    speaker: A
+    text: "\uADF8\uB798 \uADF8\uB807\uACA0\uC9C0."
+  - startTime: 87.36
+    speaker: B
+    text: "\uB108 \uADF8\uB9AC\uACE0, \uBAA9\uAC78\uC774 \uAC71\uC815\uD558\uB294
+      \uAC8C \uC544\uB2C8\uC9C0?"
+  - startTime: 90.15
+    speaker: A
+    text: "\uBB34\uC2A8 \uADFC\uAC70\uB85C?"
+  - startTime: 92.63
+    speaker: B
+    text: "\uB108 \uD558\uB098\uB3C4 \uC548 \uBD88\uC548\uD574 \uBCF4\uC5EC."
+  - startTime: 94.71
+    speaker: A
+    text: "\uBD88\uC548\uD574."
+  - startTime: 95.62
+    speaker: B
+    text: "\uB108, \uAC70\uC9D3\uB9D0\uD558\uB294 \uAC70\uC796\uC544."
+  - startTime: 98.93
+    speaker: B
+    text: "\uB611\uBC14\uB85C \uB9D0\uD574."
+  - startTime: 100.35
+    speaker: A
+    text: "\uB9DE\uC544."
+  - startTime: 101.34
+    speaker: B
+    text: "\uC624 \uADF8\uB807\uAD6C\uB098."
+  - startTime: 103.07
+    speaker: B
+    text: "\uADF8\uB7FC, \uBB50 \uC9C1\uC811 \uBAA9\uAC78\uC774 \uD314\uACE0 \uB098\uC11C
+      \uB098\uD55C\uD14C \uC774\uB7EC\uB098?"
+  - startTime: 105.29
+    speaker: A
+    text: "\uC751, \uD314\uC558\uC5B4."
+  - startTime: 106.39
+    speaker: B
+    text: "\uB108 \uC9C4\uC9DC..."
+  - startTime: 106.91
+    speaker: A
+    text: "\uC65C? \uD558\uBA74 \uC548\uB418\uB294 \uAC70\uC57C?"
+  - startTime: 109.09
+    speaker: B
+    text: "\uC65C \uADF8\uB7AC\uC5B4?"
+  - startTime: 109.81
+    speaker: A
+    text: "\uD544\uC694\uD588\uC73C\uB2C8\uAE4C."
+  - startTime: 110.77
+    speaker: B
+    text: "\uC65C \uAC70\uC9D3\uB9D0 \uD588\uB0D0\uACE0."
+  - startTime: 111.78
+    speaker: A
+    text: "\uB124\uAC00 \uC54C\uBA74 \uBB50\uAC00 \uB2EC\uB77C\uC9C0\uB294\uB370."
+  - startTime: 113.48
+    speaker: B
+    text: "\uBB50?"
+  - startTime: 113.98
+    speaker: A
+    text: "\uADF8\uB9AC\uACE0 \uC54C\uAC8C \uB418\uC5C8\uC5B4."
+  - startTime: 115.21
+    speaker: B
+    text: "\uBB58?"
+  - startTime: 115.84
+    speaker: A
+    text: "\uB124\uAC00 \uAC00\uC838\uAC14\uC9C0?"
+  - startTime: 117.63
+    speaker: A
+    text: "\uB0B4 \uB3C8."
+  - startTime: 122.56
+    speaker: A
+    text: "\uB9DE\uAD6C\uB098. \uC6B0\uB9AC \uD560\uBA38\uB2C8 \uBAA9\uAC78\uC774\uB97C
+      \uD310 \uB3C8\uC744 \uAC00\uC838\uAC14\uAD6C\uB098."
+  - startTime: 126.74
+    speaker: B
+    text: "\uBBF8\uC548\uD574."
+  - startTime: 127.64
+    speaker: A
+    text: "\uC5BC\uB9C8\uB098 \uC18C\uC911\uD55C \uAC74\uB370..."
+  - startTime: 129.13
+    speaker: B
+    text: "\uC18C\uC911\uD55C \uB3C8\uC774 \uC544\uB2C8\uB77C\uACE0 \uC0DD\uAC01\uD588\uC5B4."
+  - startTime: 131.08
+    speaker: A
+    text: "\uBB50\uB77C\uACE0?"
+  - startTime: 131.96
+    speaker: B
+    text: "\uBBF8\uC548\uD574."
+  - startTime: 133
+    speaker: A
+    text: "\uB3CC\uB824\uC918."
+  - startTime: 133.64
+    speaker: B
+    text: "\uC774\uBBF8 \uC37C\uC5B4."
+  - startTime: 134.63
+    speaker: A
+    text: "\uBB50\uB77C\uACE0?"
+  - startTime: 135.41
+    speaker: B
+    text: "\uB3CC\uB824\uC904 \uC218\uAC00 \uC5C6\uC5B4."
+  - startTime: 136.77
+    speaker: A
+    text: "\uC65C?"
+  - startTime: 137.59
+    speaker: B
+    text: "\uB108\uD55C\uD14C \uB9D0\uD574\uBD24\uC790..."
+  - startTime: 138.82
+    speaker: A
+    text: "\uB108, \uC77C \uD558\uC796\uC544. \uB3C8 \uB9CE\uC774 \uBAA8\uC544\uB480\uC796\uC544."
+  - startTime: 141.22
+    speaker: A
+    text: "\uADF8\uB7F0\uB370 \uC65C."
+  - startTime: 141.95
+    speaker: B
+    text: "\uC548 \uD574."
+  - startTime: 142.81
+    speaker: A
+    text: "\uC5B4?"
+  - startTime: 143.53
+    speaker: B
+    text: "\uB098 \uC9E4\uB838\uC5B4."
+  - startTime: 144.673
+    speaker: A
+    text: "\uC65C."
+  - startTime: 146.98
+    speaker: A
+    text: "\uC5B8\uC81C\uBD80\uD130."
+  - startTime: 148.32
+    speaker: B
+    text: "\uBAB0\uB77C\uB3C4 \uB3FC."
+  - startTime: 149.5
+    speaker: A
+    text: "\uBB50?"
+  - startTime: 150.33
+    speaker: B
+    text: "\uD558\uC5EC\uD2BC \uADF8\uB798\uC11C, \uC5B4\uCA54 \uC218 \uC5C6\uC5C8\uC5B4."
+  - startTime: 152.836
+    speaker: A
+    text: "\uC528\uBC1C \uAC1C\uAC19\uC740 \uC18C\uB9AC \uC791\uC791\uD574."
+  - startTime: 156.47
+    speaker: B
+    text: "\uB3D9\uC0DD\uD55C\uD14C \uD544\uC694\uD588\uC5B4."
+  - startTime: 158.24
+    speaker: A
+    text: "\uADF8\uB807\uB2E4\uACE0 \uC774\uB798\uB3C4 \uB3FC?"
+  - startTime: 161.73
+    speaker: A
+    text: "\uC65C \uADF8\uB7AC\uC5B4?"
+  - startTime: 162.78
+    speaker: B
+    text: "\uB124\uAC00 \uADF8\uB0A0..."
+  - startTime: 163.92
+    speaker: A
+    text: "\uBB50?"
+  - startTime: 165.33
+    speaker: B
+    text: "\uC544\uB2C8\uC57C."
+  - startTime: 166.05
+    speaker: A
+    text: "\uBB50\uAC00."
+  - startTime: 167.32
+    speaker: B
+    text: "\uB108 \uB54C\uBB38\uC774\uC57C."
+  - startTime: 168.38
+    speaker: A
+    text: "\uBB50\uAC00 \uB098 \uB54C\uBB38\uC774\uC57C?"
+  - startTime: 171.64
+    speaker: B
+    text: "\uC544\uB2C8\uC57C."
+  - startTime: 172.29
+    speaker: A
+    text: "\uD558... \uC9C4\uC9DC \uC9C0\uB784\uB3C4 \uC9C0\uB784\uC774\uB124."
+  - startTime: 176.82
+    speaker: A
+    text: "\uC9C0\uAE08 \uB124\uAC00 \uBB58 \uC798\uBABB\uD55C \uAC74\uC9C0 \uC54C\uACE0\uB294
+      \uC788\uB294 \uAC70\uC9C0?"
+  - startTime: 180.4
+    speaker: A
+    text: "\uB098\uB294 \uADF8 \uB3C8\uC774 \uB2F9\uC7A5 \uD544\uC694\uD558\uB2E8
+      \uB9D0\uC774\uC57C."
+  - startTime: 182.4
+    speaker: B
+    text: "\uC5B4\uCC28\uD53C \uB108, \uADF8 \uB3C8 \uC788\uC5B4\uBD24\uC790 \uB610
+      \uC368\uBC84\uB9B4 \uAC70\uC796\uC544."
+  - startTime: 185.76
+    speaker: A
+    text: "\uC544\uB2C8\uC57C!"
+  - startTime: 186.58
+    speaker: B
+    text: "\uADF8\uB798\uC11C \uC6D4\uC138 \uC548 \uB0C8\uC5B4?"
+  - startTime: 187.64
+    speaker: A
+    text: "\uC548 \uB0B8 \uAC8C \uC544\uB2C8\uB77C-"
+  - startTime: 188.94
+    speaker: B
+    text: "\uC694 \uC800\uBC88\uB2EC\uC774\uB791 \uC800\uC800\uBC88\uB2EC \uC6D4\uC138\uB791
+      \uACF5\uACFC\uAE08 \uB2E4 \uB0B4\uAC00 \uB0C8\uC796\uC544."
+  - startTime: 192.11
+    speaker: A
+    text: "\uB09C \uC54C\uC544\uC11C \uC815\uC0B0\uD558\uB824\uACE0 \uD588\uC5B4!"
+  - startTime: 193.84
+    speaker: B
+    text: "\uC5B8\uC81C\uCBE4? 10\uB144 \uB4A4\uC5D0?"
+  - startTime: 195.42
+    speaker: A
+    text: "\uC544\uB2C8-"
+  - startTime: 195.97
+    speaker: B
+    text: "\uADF8\uB7EC\uB2C8\uAE4C, \uB124\uAC00 \uB098\uD55C\uD14C 500\uB9CC\uC6D0\uCBE4
+      \uBE4C\uB824\uC900 \uAC78\uB85C \uCE58\uC790."
+  - startTime: 199.86
+    speaker: A
+    text: "\uB9D0\uC774 \uB418\uB294 \uC18C\uB9AC\uB97C \uD574."
+  - startTime: 202.76
+    speaker: B
+    text: "\uADF8\uB798\uC11C \uB0C8\uB0D0\uACE0."
+  - startTime: 204.69
+    speaker: B
+    text: "\uC6B0\uB9AC \uC774 \uC9D1\uC5D0 \uAC19\uC774 \uC0AC\uB294\uB370, \uB098
+      \uD63C\uC790 \uB0C8\uC796\uC544."
+  - startTime: 208.85
+    speaker: B
+    text: "\uC6D4\uC138 \uB0BC \uB3C8\uC774 \uC5C6\uB294\uB370 500\uB9CC\uC6D0\uC740
+      \uC788\uB2E4\uB2C8."
+  - startTime: 212.12
+    speaker: B
+    text: "\uD6D4\uCE5C \uAC74 \uBBF8\uC548\uD55C\uD14C, \uC5B4\uCA54 \uC218 \uC5C6\uC5C8\uC5B4."
+  - startTime: 215.78
+    speaker: B
+    text: "\uAF2D \uAC1A\uC744\uAC8C."
+  - startTime: 217.9
+    speaker: B
+    text: "\uD558\uC9C0\uB9CC, \uB108\uB3C4 \uB3C8 \uC880 \uBAA8\uC544."
+  - startTime: 219.58
+    speaker: A
+    text: "\uC313\uC544\uB450\uAE30\uB9CC \uD558\uBA74 \uBB50\uD574."
+  - startTime: 221.67
+    speaker: A
+    text: "\uAE30\uD68C\uAC00 \uC654\uC744 \uB54C \uC7A1\uC544\uC57C\uC9C0."
+  - startTime: 223.15
+    speaker: B
+    text: "\uC544\uB2C8 \uAE30\uD68C\uACE0 \uBB50\uACE0, \uBAA8\uC73C\uB77C\uACE0."
+  - startTime: 224.69
+    speaker: A
+    text: "\uB124\uAC00 \uADF8 \uAE30\uD68C\uB97C \uC557\uC544\uAC14\uC5B4."
+  - startTime: 226.71
+    speaker: B
+    text: "\uADF8\uB798, \uB10C \uD56D\uC0C1 \uADF8\uB807\uC9C0. \uADF8\uB807\uAC8C
+      \uD5C8\uD669\uB41C \uAC70\uC5D0..."
+  - startTime: 230.61
+    speaker: A
+    text: "\uB3C4\uB300\uCCB4 \uC5B4\uB514\uB2E4 \uC4F4 \uAC74\uB370? \uB09C \uC801\uC5B4\uB3C4
+      \uC4F8\uBAA8\uC788\uB294 \uACF3\uC5D0 \uC37C\uB2E4\uACE0."
+  - startTime: 234.32
+    speaker: B
+    text: "\uADF8\uAC8C \uBB50\uAC00 \uC4F8\uBAA8\uC788\uB294\uB370? \uD560\uBA38\uB2C8
+      \uC720\uD488\uC744 \uD314 \uB9CC\uD07C \uC911\uC694\uD574?"
+  - startTime: 239.42
+    speaker: B
+    text: "\uB9D0\uD574\uBD10."
+  - startTime: 240.42
+    speaker: A
+    text: "\uB108\uD55C\uD14C \uB9D0\uD574\uC11C \uBB50\uD558\uB0D0."
+  - startTime: 241.82
+    speaker: B
+    text: "\uC5B4\uB514\uB2E4 \uC4F8 \uB3C8\uC774\uC5C8\uB294\uB370."
+  - startTime: 245.18
+    speaker: B
+    text: "\uB9D0 \uBABB\uD558\uACA0\uC9C0? \uB610 \uB0A0\uB9B4 \uB3C8\uC774\uC5C8\uC796\uC544."
+  - startTime: 249.3
+    speaker: A
+    text: "\uB610\uAC00 \uC544\uB2C8\uC57C. \uC774\uBC88\uC5D4 \uB2EC\uB77C."
+  - startTime: 251.94
+    speaker: B
+    text: "\uD558."
+  - startTime: 252.53
+    speaker: A
+    text: "\uC9C4\uC9DC\uB85C. \uC774\uBC88\uC5D0\uB294 \uC9C4\uC9DC \uB420 \uC218
+      \uC788\uC5C8\uB294\uB370."
+  - startTime: 255.61
+    speaker: B
+    text: "\uB610\uB610 \uADF8 \uC18C\uB9AC. \uADF8\uB7F0 \uAC1C\uC18C\uB9AC\uAC00
+      \uD558\uB294 \uB108 \uB54C\uBB38\uC5D0 \uB0B4 \uB3D9\uC0DD\uC740-"
+  - startTime: 258.86
+    speaker: A
+    text: "\uADF8\uB798, \uB3D9\uC0DD\uC774 \uBB50 \uC5B4\uCA0C\uB294\uB370? \uADF8\uAC8C
+      \uB124 \uB3C4\uB451\uC9C8\uC774\uB791 \uBB34\uC2A8 \uC0C1\uAD00\uC778\uB370?"
+  - startTime: 263.28
+    speaker: B
+    text: "\uC544\uBB34 \uC0C1\uAD00 \uC5C6\uC5B4. \uADF8\uB9CC \uD558\uC790."
+  - startTime: 265.68
+    speaker: A
+    text: "\uBED4\uD55C \uAC70\uC9D3\uB9D0 \uD558\uC9C0 \uB9D0\uACE0!"
+  - startTime: 268.88
+    speaker: B
+    text: "\uC218\uC694\uC77C."
+  - startTime: 270.16
+    speaker: A
+    text: "\uC218\uC694\uC77C?"
+  - startTime: 270.82
+    speaker: A
+    text: "\uC544, \uADF8\uB0A0?"
+  - startTime: 272.08
+    speaker: A
+    text: "\uADF8\uAC8C \uC5B4\uCA0C\uB2E4\uACE0?"
+  - startTime: 272.99
+    speaker: B
+    text: "\uBB50\uB77C\uACE0? \uB124\uAC00 \uC57D\uC18D \uC548 \uC9C0\uCF30\uC796\uC544."
+  - startTime: 275.89
+    speaker: A
+    text: "\uAD73\uC774 \uD559\uC6D0 \uC548 \uB370\uB824\uB2E4\uC918\uB3C4 \uAC54\uB3C4
+      \uC774\uC81C 6\uD559\uB144\uC774\uC57C."
+  - startTime: 279.04
+    speaker: A
+    text: "\uD63C\uC790 \uB2E4\uB2D0 \uC904\uB3C4 \uC54C\uC544\uC57C\uC9C0."
+  - startTime: 280.51
+    speaker: B
+    text: "\uADF8\uAC8C \uC9C0\uAE08... \uD558..."
+  - startTime: 282.92
+    speaker: A
+    text: "\uB3D9\uC0DD \uC5B8\uC81C\uAE4C\uC9C0 \uADF8\uB807\uAC8C \uC2F8\uACE0
+      \uB3CC\uAC74\uB370?"
+  - startTime: 284.74
+    speaker: B
+    text: "\uC57C!"
+  - startTime: 286.42
+    speaker: B
+    text: "\uADF8\uB0A0 \uB9D0\uC774\uC57C, \uB124\uAC00 \uADF8\uB0A0 \uC548\uC640\uC11C-"
+  - startTime: 288.65
+    speaker: A
+    text: "\uADF8\uB798\uC11C \uADF8\uAC8C \uD6D4\uCE5C \uAC70\uB791-"
+  - startTime: 289.87
+    speaker: B
+    text: "\uAD50\uD1B5\uC0AC\uACE0 \uB0AC\uC5B4. \uC785\uC6D0 \uC911\uC774\uC57C."
+  - startTime: 293
+    speaker: A
+    text: "\uBB50?"
+  - startTime: 297.6
+    speaker: A
+    text: "\uADF8\uB0A0? \uADF8\uB0A0 \uC0AC\uACE0 \uB0AC\uB2E4\uACE0?"
+  - startTime: 300.96
+    speaker: A
+    text: "\uC57C, \uB098\uD55C\uD14C \uC65C \uB9D0 \uC548\uD588\uC5B4."
+  - startTime: 303.5
+    speaker: B
+    text: "\uB108\uD55C\uD14C \uB9D0\uD574\uC11C \uBB50\uD558\uB294\uB370."
+  - startTime: 306.16
+    speaker: A
+    text: "\uB098\uB3C4-"
+  - startTime: 306.63
+    speaker: B
+    text: "\uBCD1\uC6D0\uBE44\uAC00 \uD544\uC694\uD588\uB294\uB370, \uB09C \uC9E4\uB838\uACE0."
+  - startTime: 309.46
+    speaker: A
+    text: "\uC544\uB2C8, \uADF8\uAC8C."
+  - startTime: 310.46
+    speaker: B
+    text: "\uADF8\uB798\uC11C \uC0DD\uAC01\uC744 \uD574\uBD24\uC5B4."
+  - startTime: 312.07
+    speaker: B
+    text: "\uB0B4\uAC00 \uB108\uD55C\uD14C \uC5BC\uB9C8\uB098 \uB9CE\uC740 \uAC78
+      \uC92C\uB294\uC9C0."
+  - startTime: 314.53
+    speaker: B
+    text: "\uACC4\uC0B0\uC774 \uB531 \uB9DE\uB354\uB77C. 500\uB9CC\uC6D0 \uC815\uB3C4\uBA74."
+  - startTime: 317.82
+    speaker: B
+    text: "\uADF8\uB7EC\uB2C8\uAE4C, \uBBF8\uC548\uD558\uC9C0\uB9CC, \uB09C \uADF8
+      \uB3C8 \uAC00\uC838\uAC08 \uC790\uACA9 \uC788\uC5C8\uC5B4."
+  - startTime: 322.49
+    speaker: A
+    text: "\uB124\uAC00 \uB9D0\uD55C \uC801\uB3C4 \uC5C6\uB294\uB370 \uB0B4\uAC00
+      \uADF8\uAC78 \uC5B4\uB5BB\uAC8C \uC54C\uC544."
+  - startTime: 324.9
+    speaker: B
+    text: "\uC528\uBC1C \uADF8\uB7FC \uC6D4\uC138\uB098 \uC81C\uB54C \uB0B4\uB358\uAC00."
+  - startTime: 329.66
+    speaker: B
+    text: "\uB098 \uC880 \uB098\uAC14\uB2E4\uAC00 \uC62C\uAC8C."
+  - startTime: 330.61
+    speaker: A
+    text: "\uC7A0\uAE50\uB9CC."
+  - startTime: 333.07
+    speaker: A
+    text: "\uC7A0\uAE50\uB9CC."
+  - startTime: 334.62
+    speaker: B
+    text: "\uC65C."
+  - startTime: 335.98
+    speaker: A
+    text: "\uBC25 \uBA39\uACE0 \uAC00."
+  - startTime: 338.43
+    speaker: B
+    text: "\uC544\uB2C8, \uBBF8\uC548."
   sections:
   - sectionName: "1\uBC88"
     sectionId: 1
     startTime: 0
-    endTime: 3.75
+    endTime: 30.38
     unlockedByDefault: 1
   - sectionName: "2\uBC88"
     sectionId: 2
-    startTime: 3.75
-    endTime: 8.17
+    startTime: 30.38
+    endTime: 111.78
     unlockedByDefault: 0
   - sectionName: "3\uBC88"
     sectionId: 3
-    startTime: 8.17
-    endTime: 12.86
+    startTime: 111.78
+    endTime: 138.82
     unlockedByDefault: 0
   - sectionName: "4\uBC88"
     sectionId: 4
-    startTime: 12.86
-    endTime: 17.33
+    startTime: 138.82
+    endTime: 180.4
     unlockedByDefault: 0
   - sectionName: "5\uBC88"
     sectionId: 5
-    startTime: 17.33
-    endTime: 20.94
+    startTime: 180.4
+    endTime: 212.12
     unlockedByDefault: 0
   - sectionName: "6\uBC88"
     sectionId: 6
-    startTime: 20.94
-    endTime: 25.26
+    startTime: 212.12
+    endTime: 258.86
     unlockedByDefault: 0
   - sectionName: "7\uBC88"
     sectionId: 7
-    startTime: 25.26
+    startTime: 258.86
     endTime: -1
     unlockedByDefault: 0
