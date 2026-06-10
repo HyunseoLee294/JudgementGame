@@ -70,7 +70,7 @@ MonoBehaviour:
     text: "\uC81C\uBC1C \uADF8\uB9CC\uD574."
   - startTime: 24.45
     speaker: B
-    text: "\uB124\uAC00 \uB9E8\uB0A0 \uBD88\uC548\uBD88\uC548\uD558\uAC8C \uB2E4\uB2C8\uB2C8\uAE4C
+    text: "\uB124\uAC00 \uB9E8\uB0A0 \uBD88\uC548\uBD88\uC548\uD558\uAC8C \uD558\uB2C8\uAE4C
       \uADF8\uB807\uC9C0."
   - startTime: 26.6
     speaker: A
