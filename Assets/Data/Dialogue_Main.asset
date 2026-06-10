@@ -224,7 +224,7 @@ MonoBehaviour:
   - startTime: 110.77
     speaker: B
     text: "\uC65C \uAC70\uC9D3\uB9D0 \uD588\uB0D0\uACE0."
-  - startTime: 111.78
+  - startTime: 111.83
     speaker: A
     text: "\uB124\uAC00 \uC54C\uBA74 \uBB50\uAC00 \uB2EC\uB77C\uC9C0\uB294\uB370."
   - startTime: 113.48
@@ -576,11 +576,11 @@ MonoBehaviour:
   - sectionName: "2\uBC88"
     sectionId: 2
     startTime: 30.38
-    endTime: 111.78
+    endTime: 111.83
     unlockedByDefault: 0
   - sectionName: "3\uBC88"
     sectionId: 3
-    startTime: 111.78
+    startTime: 111.83
     endTime: 138.82
     unlockedByDefault: 0
   - sectionName: "4\uBC88"
