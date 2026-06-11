@@ -153,10 +153,7 @@ MonoBehaviour:
   mainAudio: {fileID: 738067361}
   judgementUI: {fileID: 366425300}
   dialogueData: {fileID: 11400000, guid: 78de8c766ba6b324da58e677dadea01d, type: 2}
-  stage1Sections: 01000000
-  stage2Sections: 020000000300000004000000
-  stage3Sections: 0500000006000000
-  stage4Sections: 07000000
+  judgmentThresholds: 01000000030000000500000007000000
   delayBeforeJudgment: 0.1
 --- !u!4 &11672399
 Transform:
@@ -604,7 +601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Clue
   sectionIdToUnlock: 7
   clueName: "\uC9C4\uB2E8\uC11C"
-  requiredSections: 0500000006000000
+  unlockPhase: 7
 --- !u!65 &255739191
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1350,7 +1347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Clue
   sectionIdToUnlock: 3
   clueName: "\uB3C8\uBD09\uD22C"
-  requiredSections: 
+  unlockPhase: 3
 --- !u!65 &405441670
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3065,7 +3062,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Clue
   sectionIdToUnlock: 2
   clueName: "\uBAA9\uAC78\uC774"
-  requiredSections: 
+  unlockPhase: 3
 --- !u!65 &867305339
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3433,7 +3430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Clue
   sectionIdToUnlock: 6
   clueName: "A\uC758 \uC774\uC720"
-  requiredSections: 020000000300000004000000
+  unlockPhase: 5
 --- !u!65 &912516665
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3529,7 +3526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &997399685
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5495,7 +5492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Clue
   sectionIdToUnlock: 5
   clueName: "\uC784\uB300\uB8CC"
-  requiredSections: 020000000300000004000000
+  unlockPhase: 5
 --- !u!65 &1669464848
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5623,7 +5620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Clue
   sectionIdToUnlock: 4
   clueName: "\uD574\uACE0"
-  requiredSections: 
+  unlockPhase: 3
 --- !u!65 &1698722557
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -36,7 +36,7 @@ public class DialogueDisplay : MonoBehaviour
             else
             {
                 // 해금 안 된 대사: ??? + 검정 네모
-                tmp.text = "???   <mark=#000000>" + line.text + "</mark>";
+                tmp.text = "???   <mark=#FFFFFFFF>" + line.text + "</mark>";
             }
 
             lineTexts.Add(tmp);

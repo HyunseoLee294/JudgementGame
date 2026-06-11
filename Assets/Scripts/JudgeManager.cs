@@ -13,11 +13,14 @@ public class JudgeManager : MonoBehaviour
     public JudgementUI judgementUI;
     public JudgeDialogueData dialogueData;
 
-    [Header("단계별 요구 섹션")]
-    public int[] stage1Sections = { 1 };
-    public int[] stage2Sections = { 2, 3, 4 };
-    public int[] stage3Sections = { 5, 6 };
-    public int[] stage4Sections = { 7 };
+    // [변경] 단계별 "고정 섹션 집합" 대신, 각 차수 판단이 발동하는
+    // "누적 완주 섹션 개수" 임계값으로 트리거를 바꾼다.
+    //  - 1차: 누적 1개 (섹션 1)
+    //  - 2차: 누적 3개 (1 + 2,3,4 중 2개)
+    //  - 3차: 누적 5개 (+ 남은 셋 중 2개)
+    //  - 4차: 누적 7개 (전부)
+    [Header("판단 트리거 (누적 완주 섹션 개수)")]
+    public int[] judgmentThresholds = { 1, 3, 5, 7 };
 
     [Header("판단 전 지연 (초)")]
     public float delayBeforeJudgment = 0.3f;
@@ -81,13 +84,11 @@ public class JudgeManager : MonoBehaviour
         sectionFirstPlayed.Add(sectionId);
         pendingUnheardSections.Remove(sectionId);
 
-        int[] required = GetRequiredSectionsForCurrentStage();
-        if (required == null) return;
-
-        foreach (var sid in required)
-        {
-            if (!sectionFirstPlayed.Contains(sid)) return;
-        }
+        // [변경] "현재 단계의 요구 섹션이 전부 완주됐는가"가 아니라
+        // "누적 완주 개수가 현재 차수의 임계값에 도달했는가"로 판단을 발동.
+        int threshold = GetThresholdForCurrentStage();
+        if (threshold < 0) return;               // 지금은 판단 대기 단계가 아님
+        if (sectionFirstPlayed.Count < threshold) return;  // 아직 개수 부족
 
         // 즉시 Phase를 Judgment로 전환 (0.3초 대기 중에도 상호작용 차단)
         Phase = NextJudgmentPhase(Phase);
@@ -99,16 +100,27 @@ public class JudgeManager : MonoBehaviour
         return pendingUnheardSections.Count > 0;
     }
 
-    int[] GetRequiredSectionsForCurrentStage()
+    // [변경] 고정 섹션 배열 대신, 현재 Stage 차수에 해당하는 누적 임계값을 반환.
+    // 판단 대기 단계(Stage1~4)가 아니면 -1.
+    int GetThresholdForCurrentStage()
     {
-        switch (Phase)
+        int idx = StageIndex(Phase);   // Stage1→0, Stage2→1, Stage3→2, Stage4→3
+        if (idx < 0) return -1;
+        if (judgmentThresholds == null || idx >= judgmentThresholds.Length) return -1;
+        return judgmentThresholds[idx];
+    }
+
+    // Stage 페이즈를 0-기반 차수 인덱스로 변환 (그 외 페이즈는 -1)
+    int StageIndex(GamePhase p)
+    {
+        switch (p)
         {
-            case GamePhase.Stage1: return stage1Sections;
-            case GamePhase.Stage2: return stage2Sections;
-            case GamePhase.Stage3: return stage3Sections;
-            case GamePhase.Stage4: return stage4Sections;
-            default: return null;
+            case GamePhase.Stage1: return 0;
+            case GamePhase.Stage2: return 1;
+            case GamePhase.Stage3: return 2;
+            case GamePhase.Stage4: return 3;
         }
+        return -1;
     }
 
     IEnumerator TriggerJudgment()
@@ -274,5 +286,13 @@ public class JudgeManager : MonoBehaviour
     public bool IsEnding()
     {
         return Phase == GamePhase.Ending;
+    }
+
+    // [추가] 단서 게이트용 헬퍼.
+    // "이 Phase 단계 이상으로 진행됐는가?"를 GamePhase enum 선언 순서 기준으로 판정.
+    // Clue가 unlockPhase 게이트를 검사할 때 사용한다.
+    public bool HasReachedPhase(GamePhase target)
+    {
+        return (int)Phase >= (int)target;
     }
 }
