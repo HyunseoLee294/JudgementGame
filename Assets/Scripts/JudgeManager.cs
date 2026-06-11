@@ -295,4 +295,14 @@ public class JudgeManager : MonoBehaviour
     {
         return (int)Phase >= (int)target;
     }
+
+    // 주어진 섹션들이 모두 첫 완주됐는지
+    public bool AreSectionsFirstPlayed(IEnumerable<int> sectionIds)
+    {
+        foreach (var id in sectionIds)
+        {
+            if (!sectionFirstPlayed.Contains(id)) return false;
+        }
+        return true;
+    }
 }

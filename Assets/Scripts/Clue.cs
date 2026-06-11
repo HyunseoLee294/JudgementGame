@@ -17,12 +17,21 @@ public class Clue : MonoBehaviour, IInteractable
     //  - 7번 단서    → unlockPhase = Stage4 (3차 판단 통과 후)
     public GamePhase unlockPhase = GamePhase.Stage1;
 
+    public int[] requiredSectionsPlayed; // 이 단서가 열리기 전 완주돼야 할 섹션들 (7번 단서엔 {1,2,3,4,5,6})
+
     public bool IsAvailable()
     {
         if (JudgeManager.Instance == null) return false;
-        // 현재 게임이 unlockPhase 단계 이상으로 진행됐을 때만 상호작용 가능
-        return JudgeManager.Instance.HasReachedPhase(unlockPhase);
+        if (!JudgeManager.Instance.HasReachedPhase(unlockPhase)) return false;
+
+        if (requiredSectionsPlayed != null && requiredSectionsPlayed.Length > 0)
+        {
+            if (!JudgeManager.Instance.AreSectionsFirstPlayed(requiredSectionsPlayed))
+                return false;
+        }
+        return true;
     }
+
 
     public void Interact()
     {
