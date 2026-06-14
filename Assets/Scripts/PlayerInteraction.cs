@@ -65,6 +65,13 @@ public class PlayerInteraction : MonoBehaviour
                         currentInteractable = null;
                     }
                 }
+
+                else if (currentInteractable is FurnitureInteractable)
+                {
+                    FurnitureInteractable furn = (FurnitureInteractable)currentInteractable;
+                    if (!furn.IsAvailable())
+                        currentInteractable = null;
+                }
             }
         }
 
