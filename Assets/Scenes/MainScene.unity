@@ -3788,7 +3788,7 @@ MonoBehaviour:
   openAngle: 90
   rotationAxis: {x: 0, y: 1, z: 0}
   animDuration: 0.4
-  unlockCondition: 2
+  unlockCondition: 1
   pairedClue: {fileID: 0}
   clueObjects: []
 --- !u!1001 &447429978
@@ -5310,6 +5310,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3784824602241234752, guid: 3fb2422b8d41c4d4098b671ebb44a4b6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1748724660}
+    - targetCorrespondingSourceObject: {fileID: 3784824602241234752, guid: 3fb2422b8d41c4d4098b671ebb44a4b6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1748724666}
+    - targetCorrespondingSourceObject: {fileID: 3784824602241234752, guid: 3fb2422b8d41c4d4098b671ebb44a4b6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1748724665}
+    - targetCorrespondingSourceObject: {fileID: 3784824602241234752, guid: 3fb2422b8d41c4d4098b671ebb44a4b6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1748724664}
   m_SourcePrefab: {fileID: 100100000, guid: 3fb2422b8d41c4d4098b671ebb44a4b6, type: 3}
 --- !u!4 &734559493 stripped
 Transform:
@@ -9368,11 +9377,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.19607843}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.19607843}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.19607843}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.19607843}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.19607843}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.39215687}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.39215687}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.39215687}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.39215687}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -9409,7 +9418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.47843137}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.19607843}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11845,8 +11854,71 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.024347994, y: 0.0082227895, z: 0.025444}
-  m_Center: {x: -0.0000000025658853, y: 0.00033560212, z: 0.012721997}
+  m_Size: {x: 0.007874735, y: 0.0082227895, z: 0.025444}
+  m_Center: {x: -0.008236645, y: 0.00033559938, z: 0.012721997}
+--- !u!65 &1748724664
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1748724656}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.024347994, y: 0.008893997, z: 0.0044509964}
+  m_Center: {x: -1.2759258e-10, y: -0.000000001025147, z: 0.023218399}
+--- !u!65 &1748724665
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1748724656}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.016182836, y: 0.008893997, z: 0.009939161}
+  m_Center: {x: 0.00408258, y: -0.0000000017848037, z: 0.0049695666}
+--- !u!65 &1748724666
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1748724656}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.008291438, y: 0.008893997, z: 0.025444}
+  m_Center: {x: 0.008028288, y: 5.076992e-10, z: 0.012721996}
 --- !u!1001 &1818497091
 PrefabInstance:
   m_ObjectHideFlags: 0
