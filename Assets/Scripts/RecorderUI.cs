@@ -79,6 +79,10 @@ public class RecorderUI : MonoBehaviour
         float currentTime = recorderAudio.time;
         float totalTime = recorderAudio.clip.length;
 
+        // 처음 듣는 구간 재생 중에는 슬라이더 조작 불가
+        bool firstListen = GameManager.Instance != null && GameManager.Instance.isPlayingUnlockSection;
+        if (playbackSlider) playbackSlider.interactable = !firstListen;
+
         // 드래그 중이 아닐 때만 슬라이더 위치 갱신
         if (!isDragging && playbackSlider)
         {
@@ -131,6 +135,13 @@ public class RecorderUI : MonoBehaviour
 
         if (!recorderAudio || recorderAudio.clip == null) return;
         if (!playbackSlider) return;
+
+        // 처음 듣는 구간 재생 중이면 슬라이더 되돌리기
+        if (GameManager.Instance != null && GameManager.Instance.isPlayingUnlockSection)
+        {
+            playbackSlider.value = recorderAudio.time / recorderAudio.clip.length;
+            return;
+        }
 
         float targetTime = playbackSlider.value * recorderAudio.clip.length;
 
