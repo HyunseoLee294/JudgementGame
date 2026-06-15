@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class JudgeManager : MonoBehaviour
 {
@@ -236,7 +237,9 @@ public class JudgeManager : MonoBehaviour
 
         yield return judgementUI.ShowJudgeLines(lines.ToArray());
 
-        // 엔딩 대사 종료 후 검은 화면은 그대로 유지
+        // 마지막 대사 사라진 뒤 2초 후 타이틀 씬으로 복귀
+        yield return new WaitForSecondsRealtime(2f);
+        SceneManager.LoadScene("TitleScene");
     }
 
     string BuildJudgmentSummary()
