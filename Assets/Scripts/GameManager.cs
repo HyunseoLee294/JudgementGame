@@ -203,10 +203,16 @@ public class GameManager : MonoBehaviour
     {
         if (recorder == null || mainAudio == null) yield break;
 
+        bool reachedClipEnd = mainAudio.clip == null || sectionEndTime >= mainAudio.clip.length - 0.05f;
+
+        // 바로 다음 구간이 이미 해금되어 끊김 없이 이어지는 경우 → 효과음 없이 그대로 재생 유지
+        if (!reachedClipEnd && IsTimeUnlocked(sectionEndTime))
+        {
+            yield break;
+        }
+
         // 사운드 재생 도중 오디오가 계속 흘러가며 잠긴 구간으로 들어가지 않도록 먼저 멈춤
         mainAudio.Pause();
-
-        bool reachedClipEnd = mainAudio.clip == null || sectionEndTime >= mainAudio.clip.length - 0.05f;
 
         if (!reachedClipEnd)
         {
