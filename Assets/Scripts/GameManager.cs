@@ -278,6 +278,22 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    // 주어진 시간이 속한 구간의 sectionId, 없으면 -1
+    public int GetSectionIdAtTime(float time)
+    {
+        foreach (var section in subtitleData.sections)
+        {
+            bool afterStart = time >= section.startTime;
+            bool beforeEnd = section.endTime < 0 || time < section.endTime;
+
+            if (afterStart && beforeEnd)
+            {
+                return section.sectionId;
+            }
+        }
+        return -1;
+    }
+
     // 주어진 시간 이후에 해금된 구간이 있으면 그 시작 시간 리턴
     // 없으면 -1 리턴
     public float GetNextUnlockedTime(float currentTime)

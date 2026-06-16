@@ -99,6 +99,12 @@ public class JudgeManager : MonoBehaviour
         StartCoroutine(TriggerJudgment());
     }
 
+    // 해당 섹션이 처음부터 끝까지 한 번 재생된 적이 있는지
+    public bool IsSectionFirstPlayed(int sectionId)
+    {
+        return sectionFirstPlayed.Contains(sectionId);
+    }
+
     public bool HasUnheardUnlocks()
     {
         return pendingUnheardSections.Count > 0;
