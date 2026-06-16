@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI unlockNotificationText;
     public float notificationDuration = 2f;
     public Recorder recorder;
+
+    [Header("새 구간 재생 중 안내 텍스트 (녹음기 UI가 열려있으면 숨김)")]
+    public TextMeshProUGUI playingNewSectionText;
+    public string playingNewSectionMessage = "새로운 섹션 재생 중";
     private HashSet<int> unlockedSections = new HashSet<int>();
     public DialogueDisplay dialogueDisplay;
     public PlaybackBarDisplay playbackBarDisplay;
@@ -42,6 +46,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        UpdatePlayingNewSectionText();
+
         if (mainAudio == null || !mainAudio.isPlaying) return;
 
         float t = mainAudio.time;
@@ -65,6 +71,31 @@ public class GameManager : MonoBehaviour
                 }
             }
             return;
+        }
+    }
+
+    void UpdatePlayingNewSectionText()
+    {
+        if (playingNewSectionText == null) return;
+
+        bool recorderOpen = recorder != null
+            && recorder.recorderUI != null
+            && recorder.recorderUI.recorderPanel != null
+            && recorder.recorderUI.recorderPanel.activeSelf;
+
+        bool shouldShow = isPlayingUnlockSection && !recorderOpen;
+
+        if (shouldShow)
+        {
+            if (!playingNewSectionText.gameObject.activeSelf)
+            {
+                playingNewSectionText.gameObject.SetActive(true);
+            }
+            playingNewSectionText.text = playingNewSectionMessage;
+        }
+        else if (playingNewSectionText.gameObject.activeSelf)
+        {
+            playingNewSectionText.gameObject.SetActive(false);
         }
     }
 
