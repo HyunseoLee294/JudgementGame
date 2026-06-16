@@ -6653,7 +6653,8 @@ MonoBehaviour:
   notificationDuration: 2
   recorder: {fileID: 738067362}
   playingNewSectionText: {fileID: 1121284223}
-  playingNewSectionMessage: "\uC0C8\uB85C\uC6B4 \uAD6C\uAC04 \uC7AC\uC0DD \uC911"
+  playingNewSectionMessage: "\uB179\uC74C\uAE30\uC5D0\uC11C \uC0C8\uB85C\uC6B4 \uAD6C\uAC04
+    \uC7AC\uC0DD \uC911"
   dialogueDisplay: {fileID: 366425298}
   playbackBarDisplay: {fileID: 366425299}
 --- !u!4 &903172034
@@ -8061,7 +8062,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC0C8\uB85C\uC6B4 \uAD6C\uAC04 \uC7AC\uC0DD \uC911"
+  m_text: "\uB179\uC74C\uAE30\uC5D0\uC11C \uC0C8\uB85C\uC6B4 \uAD6C\uAC04 \uC7AC\uC0DD
+    \uC911"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 324f578921faeda4ab50a95f09332518, type: 2}
   m_sharedMaterial: {fileID: -9139279056356378252, guid: 324f578921faeda4ab50a95f09332518, type: 2}
