@@ -79,8 +79,8 @@ public class RecorderUI : MonoBehaviour
         float currentTime = recorderAudio.time;
         float totalTime = recorderAudio.clip.length;
 
-        // 처음 듣는 구간 재생 중에는 슬라이더 조작 불가 (Stage1에만 적용)
-        bool firstListen = IsFirstListenLockActive();
+        // 처음 듣는 구간 재생 중에는 슬라이더 조작 불가
+        bool firstListen = GameManager.Instance != null && GameManager.Instance.isPlayingUnlockSection;
         if (playbackSlider) playbackSlider.interactable = !firstListen;
 
         // 드래그 중이 아닐 때만 슬라이더 위치 갱신
@@ -136,8 +136,8 @@ public class RecorderUI : MonoBehaviour
         if (!recorderAudio || recorderAudio.clip == null) return;
         if (!playbackSlider) return;
 
-        // 처음 듣는 구간 재생 중이면 슬라이더 되돌리기 (Stage1에만 적용)
-        if (IsFirstListenLockActive())
+        // 처음 듣는 구간 재생 중이면 슬라이더 되돌리기
+        if (GameManager.Instance != null && GameManager.Instance.isPlayingUnlockSection)
         {
             playbackSlider.value = recorderAudio.time / recorderAudio.clip.length;
             return;
@@ -155,15 +155,5 @@ public class RecorderUI : MonoBehaviour
             // 해금 안 된 구간이면 원래 위치로 되돌리기
             playbackSlider.value = recorderAudio.time / recorderAudio.clip.length;
         }
-    }
-
-    // 처음 듣는 구간(미청취 해금 구간) 재생 중 슬라이더 조작을 막는 잠금은
-    // Stage1(섹션 1)에만 적용하고, 그 이후 단계(클루로 해금되는 섹션)에는 적용하지 않는다.
-    bool IsFirstListenLockActive()
-    {
-        bool isPlayingUnlock = GameManager.Instance != null && GameManager.Instance.isPlayingUnlockSection;
-        if (!isPlayingUnlock) return false;
-
-        return JudgeManager.Instance != null && JudgeManager.Instance.Phase == GamePhase.Stage1;
     }
 }

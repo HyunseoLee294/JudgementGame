@@ -90,8 +90,6 @@ public class GameManager : MonoBehaviour
             if (JudgeManager.Instance != null)
             {
                 JudgeManager.Instance.RegisterUnlock(sectionId);
-                // [변경] 단서 해금 직후 바로 판단 트리거 체크 (오디오 완청 대기 없음)
-                JudgeManager.Instance.NotifySectionFirstPlayed(sectionId);
             }
 
             if (recorder != null) recorder.CancelCurrentRoutines();
