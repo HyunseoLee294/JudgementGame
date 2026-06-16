@@ -18,7 +18,6 @@ public class JudgementUI : MonoBehaviour
     [Header("사수 판관 대사 단독 표시 (도입부/엔딩)")]
     public GameObject judgeDialoguePanel;
     public TextMeshProUGUI judgeDialogueText;
-    public float lineDuration = 3f;
     public KeyCode skipKey = KeyCode.Space;
 
     [Header("엔딩 검은 화면 오버레이")]
@@ -48,23 +47,25 @@ public class JudgementUI : MonoBehaviour
         if (nameBText) nameBText.fontStyle = (selected == 'B') ? FontStyles.Bold : FontStyles.Normal;
     }
 
-    public IEnumerator ShowJudgeLines(string[] lines)
+    public IEnumerator ShowJudgeLines(string[] lines, Action<int> onLineShown = null)
     {
         if (lines == null || lines.Length == 0) yield break;
 
         CursorController.Unlock();
         if (judgeDialoguePanel) judgeDialoguePanel.SetActive(true);
 
-        foreach (var line in lines)
+        for (int i = 0; i < lines.Length; i++)
         {
-            if (judgeDialogueText) judgeDialogueText.text = line;
-            float t = 0f;
-            while (t < lineDuration && !Input.GetKeyDown(skipKey))
+            onLineShown?.Invoke(i);
+
+            if (judgeDialogueText) judgeDialogueText.text = lines[i];
+
+            // 입력(스페이스바 또는 클릭)이 있을 때까지 대사를 넘기지 않음 (자동 진행 없음)
+            while (!Input.GetKeyDown(skipKey) && !Input.GetMouseButtonDown(0))
             {
-                t += Time.unscaledDeltaTime;
                 yield return null;
             }
-            // 프레임 하나 쉬어서 스페이스 중복 감지 방지
+            // 프레임 하나 쉬어서 입력 중복 감지 방지
             yield return null;
         }
 

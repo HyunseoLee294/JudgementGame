@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     private int lastReportedSection = -1;
     private Coroutine notificationRoutine;
+    private Coroutine unlockRoutineHandle;
 
     public bool isPlayingUnlockSection { get; private set; } = false;
 
@@ -89,11 +90,27 @@ public class GameManager : MonoBehaviour
             if (JudgeManager.Instance != null)
             {
                 JudgeManager.Instance.RegisterUnlock(sectionId);
+                // [변경] 단서 해금 직후 바로 판단 트리거 체크 (오디오 완청 대기 없음)
+                JudgeManager.Instance.NotifySectionFirstPlayed(sectionId);
             }
 
             if (recorder != null) recorder.CancelCurrentRoutines();
-            StartCoroutine(UnlockRoutine(unlockedSection));
+            // 이전 단서의 미리듣기가 아직 끝나지 않았다면 정리하고 새로 시작
+            CancelUnlockRoutine();
+            unlockRoutineHandle = StartCoroutine(UnlockRoutine(unlockedSection));
         }
+    }
+
+    // 단서 미리듣기 중인 UnlockRoutine을 강제로 중단한다.
+    // (다른 단서를 곧바로 해금하거나, 엔딩으로 진입할 때 호출)
+    public void CancelUnlockRoutine()
+    {
+        if (unlockRoutineHandle != null)
+        {
+            StopCoroutine(unlockRoutineHandle);
+            unlockRoutineHandle = null;
+        }
+        isPlayingUnlockSection = false;
     }
 
     IEnumerator UnlockRoutine(DialogueSection section)
@@ -124,11 +141,6 @@ public class GameManager : MonoBehaviour
 
         isPlayingUnlockSection = false;
 
-        bool uiOpen = recorder != null
-            && recorder.recorderUI != null
-            && recorder.recorderUI.recorderPanel != null
-            && recorder.recorderUI.recorderPanel.activeSelf;
-
         // 판단 페이즈가 시작되는 경우에는 오디오를 그대로 둠
         // (TriggerJudgment가 0.3초 뒤 UI를 ForceOpen해서 흐름을 이어감)
         bool judgmentStarting = JudgeManager.Instance != null
@@ -137,10 +149,61 @@ public class GameManager : MonoBehaviour
              || JudgeManager.Instance.Phase == GamePhase.Judgment3
              || JudgeManager.Instance.Phase == GamePhase.Judgment4);
 
+        // 이 구간 뒤에 원래 스킵/되감기 사운드가 재생될 차례였다면, 멈추기 전에 그것까지 재생
+        if (!judgmentStarting)
+        {
+            yield return PlayTrailingSkipOrRewindSfx(endTime);
+        }
+
+        bool uiOpen = recorder != null
+            && recorder.recorderUI != null
+            && recorder.recorderUI.recorderPanel != null
+            && recorder.recorderUI.recorderPanel.activeSelf;
+
         if (!judgmentStarting && !uiOpen && mainAudio.isPlaying)
         {
             mainAudio.Pause();
         }
+    }
+
+    // 단서로 해금된 구간 재생이 끝난 시점 기준으로, 평소 녹음기 재생 중이었다면
+    // 울렸을 스킵/되감기 사운드를 같은 순서로 재생한다.
+    // 재생 위치는 항상 "해금된" 지점에서 멈춰야, 나중에 녹음기를 다시 열었을 때
+    // 같은 스킵/되감기 사운드가 중복으로 재생되지 않는다.
+    IEnumerator PlayTrailingSkipOrRewindSfx(float sectionEndTime)
+    {
+        if (recorder == null || mainAudio == null) yield break;
+
+        // 사운드 재생 도중 오디오가 계속 흘러가며 잠긴 구간으로 들어가지 않도록 먼저 멈춤
+        mainAudio.Pause();
+
+        bool reachedClipEnd = mainAudio.clip == null || sectionEndTime >= mainAudio.clip.length - 0.05f;
+
+        if (!reachedClipEnd)
+        {
+            // 뒤에 잠긴 구간이 이어진다 → 스킵 사운드
+            if (recorder.skipSfx != null && recorder.skipSfx.clip != null)
+            {
+                recorder.skipSfx.Play();
+                yield return new WaitForSeconds(recorder.skipSfx.clip.length);
+            }
+
+            float nextTime = GetNextUnlockedTime(sectionEndTime);
+            if (nextTime >= 0)
+            {
+                // 이어서 들을 수 있는 해금된 구간이 있으면 그 시작점에 정지 (되감기 불필요)
+                mainAudio.time = nextTime;
+                yield break;
+            }
+        }
+
+        // 더 들을 구간이 없음(오디오 끝 또는 스킵해도 갈 곳 없음) → 되감기 사운드, 처음으로 되돌림
+        if (recorder.rewindSfx != null && recorder.rewindSfx.clip != null)
+        {
+            recorder.rewindSfx.Play();
+            yield return new WaitForSeconds(recorder.rewindSfx.clip.length);
+        }
+        mainAudio.time = 0f;
     }
 
     // 화면 상단(또는 설정된 위치)에 알림 문구를 notificationDuration초 동안 표시

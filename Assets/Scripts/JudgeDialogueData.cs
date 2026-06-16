@@ -51,6 +51,9 @@ public class JudgeDialogueData : ScriptableObject
         "미정, 이라네."
     };
 
+    [Header("엔딩 - 이 대사가 표시되는 순간 엔딩 음악 재생")]
+    public string endingMusicTriggerLine = "미정, 이라네.";
+
     public string GetJudgmentLine(int stageNumber)
     {
         switch (stageNumber)

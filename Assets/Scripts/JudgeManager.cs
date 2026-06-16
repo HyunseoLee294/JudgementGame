@@ -14,6 +14,9 @@ public class JudgeManager : MonoBehaviour
     public JudgementUI judgementUI;
     public JudgeDialogueData dialogueData;
 
+    [Header("엔딩 음악 (씬 전환 후에도 계속 재생됨)")]
+    public AudioSource endingMusic;
+
     // [변경] 단계별 "고정 섹션 집합" 대신, 각 차수 판단이 발동하는
     // "누적 완주 섹션 개수" 임계값으로 트리거를 바꾼다.
     //  - 1차: 누적 1개 (섹션 1)
@@ -209,21 +212,14 @@ public class JudgeManager : MonoBehaviour
         // 1) 검은 화면 켜기
         judgementUI.SetBlackOverlay(true);
 
-        // 2) 오디오를 처음부터 끝까지 한 번 재생 (자막은 기존 SubtitleManager가 표시)
+        // [변경] 4차 판단 후 마지막 녹음 전체 재생 없이 바로 사수 판관 대사로 진행
         if (recorder != null) recorder.CancelCurrentRoutines();
-        if (mainAudio != null)
-        {
-            mainAudio.Stop();
-            mainAudio.time = 0f;
-            mainAudio.Play();
+        // 단서 미리듣기(UnlockRoutine)가 아직 끝나지 않았을 수 있으므로 먼저 중단
+        // (안 그러면 엔딩 중에 엉뚱한 스킵/되감기 사운드가 울릴 수 있음)
+        if (gameManager != null) gameManager.CancelUnlockRoutine();
+        if (mainAudio != null) mainAudio.Stop();
 
-            while (mainAudio.isPlaying)
-            {
-                yield return null;
-            }
-        }
-
-        // 3) 엔딩 대사: opening → 판단 시퀀스 → 패턴 한줄평 → closing
+        // 2) 엔딩 대사: opening → 판단 시퀀스 → 패턴 한줄평 → closing
         var lines = new List<string>();
         if (dialogueData.endingOpening != null) lines.AddRange(dialogueData.endingOpening);
 
@@ -235,10 +231,27 @@ public class JudgeManager : MonoBehaviour
 
         if (dialogueData.endingClosing != null) lines.AddRange(dialogueData.endingClosing);
 
-        yield return judgementUI.ShowJudgeLines(lines.ToArray());
+        yield return judgementUI.ShowJudgeLines(lines.ToArray(), lineIndex =>
+        {
+            // 지정된 대사가 표시되는 순간 엔딩 음악 재생 시작
+            if (endingMusic != null
+                && !endingMusic.isPlaying
+                && lines[lineIndex] == dialogueData.endingMusicTriggerLine)
+            {
+                endingMusic.Play();
+            }
+        });
 
         // 마지막 대사 사라진 뒤 2초 후 타이틀 씬으로 복귀
         yield return new WaitForSecondsRealtime(2f);
+
+        // 씬 전환 후에도 음악이 끊기지 않도록 별도 루트 오브젝트로 분리 후 보존
+        if (endingMusic != null && endingMusic.isPlaying)
+        {
+            endingMusic.transform.SetParent(null);
+            DontDestroyOnLoad(endingMusic.gameObject);
+        }
+
         SceneManager.LoadScene("TitleScene");
     }
 
