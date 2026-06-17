@@ -14,6 +14,21 @@ public class TitleSceneManager : MonoBehaviour
         if (quitButton) quitButton.onClick.AddListener(OnQuitClicked);
     }
 
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    void Update()
+    {
+        if (!Cursor.visible || Cursor.lockState != CursorLockMode.None)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
+
     void OnStartClicked()
     {
         SceneManager.LoadScene(mainSceneName);
