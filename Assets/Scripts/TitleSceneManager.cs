@@ -31,11 +31,10 @@ public class TitleSceneManager : MonoBehaviour
 
     void OnStartClicked()
     {
-        // MainScene에서 DontDestroyOnLoad로 넘어온 엔딩 BGM 오브젝트를 정지 후 제거
-        var ddolScene = gameObject.scene; // TitleScene
+        // MainScene에서 DontDestroyOnLoad로 넘어온 엔딩 BGM 정지 후 제거
         foreach (var audio in FindObjectsByType<AudioSource>(FindObjectsSortMode.None))
         {
-            if (audio.gameObject.scene != ddolScene && audio.isPlaying)
+            if (audio.isPlaying)
             {
                 audio.Stop();
                 Destroy(audio.gameObject);
