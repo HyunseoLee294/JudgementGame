@@ -7,7 +7,6 @@ public class TitleSceneManager : MonoBehaviour
     public Button startButton;
     public Button quitButton;
     public string mainSceneName = "MainScene";
-    public AudioSource bgmAudio;
 
     void Awake()
     {
@@ -32,8 +31,16 @@ public class TitleSceneManager : MonoBehaviour
 
     void OnStartClicked()
     {
-        if (bgmAudio != null && bgmAudio.isPlaying)
-            bgmAudio.Stop();
+        // MainScene에서 DontDestroyOnLoad로 넘어온 엔딩 BGM 오브젝트를 정지 후 제거
+        var ddolScene = gameObject.scene; // TitleScene
+        foreach (var audio in FindObjectsByType<AudioSource>(FindObjectsSortMode.None))
+        {
+            if (audio.gameObject.scene != ddolScene && audio.isPlaying)
+            {
+                audio.Stop();
+                Destroy(audio.gameObject);
+            }
+        }
         SceneManager.LoadScene(mainSceneName);
     }
 
