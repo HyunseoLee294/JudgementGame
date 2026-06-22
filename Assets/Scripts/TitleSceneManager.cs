@@ -7,6 +7,7 @@ public class TitleSceneManager : MonoBehaviour
     public Button startButton;
     public Button quitButton;
     public string mainSceneName = "MainScene";
+    public AudioSource bgmAudio;
 
     void Awake()
     {
@@ -31,6 +32,8 @@ public class TitleSceneManager : MonoBehaviour
 
     void OnStartClicked()
     {
+        if (bgmAudio != null && bgmAudio.isPlaying)
+            bgmAudio.Stop();
         SceneManager.LoadScene(mainSceneName);
     }
 
