@@ -102,8 +102,8 @@ public class Recorder : MonoBehaviour, IInteractable
         StopAllCoroutines();
         isRewinding = false;
         isSkipping = false;
-        rewindSfx.Stop();
-        skipSfx.Stop();
+        if (rewindSfx != null) rewindSfx.Stop();
+        if (skipSfx != null) skipSfx.Stop();
     }
 
     public bool HasStarted()
@@ -119,8 +119,11 @@ public class Recorder : MonoBehaviour, IInteractable
         mainAudio.Pause();
 
         // 삐 소리 재생
-        skipSfx.Play();
-        yield return new WaitForSeconds(skipSfx.clip.length);
+        if (skipSfx != null && skipSfx.clip != null)
+        {
+            skipSfx.Play();
+            yield return new WaitForSeconds(skipSfx.clip.length);
+        }
 
         // 대기 중 UnlockRoutine이 시작됐으면 간섭하지 않고 종료
         if (GameManager.Instance != null && GameManager.Instance.isPlayingUnlockSection)
@@ -154,10 +157,13 @@ public class Recorder : MonoBehaviour, IInteractable
         mainAudio.time = 0f;
 
         // 되감기 효과음 재생
-        rewindSfx.Play();
+        if (rewindSfx != null && rewindSfx.clip != null)
+        {
+            rewindSfx.Play();
 
-        // 효과음이 끝날 때까지 대기
-        yield return new WaitForSeconds(rewindSfx.clip.length);
+            // 효과음이 끝날 때까지 대기
+            yield return new WaitForSeconds(rewindSfx.clip.length);
+        }
 
         // 대기 중 UnlockRoutine이 시작됐으면 간섭하지 않고 종료
         if (GameManager.Instance != null && GameManager.Instance.isPlayingUnlockSection)
