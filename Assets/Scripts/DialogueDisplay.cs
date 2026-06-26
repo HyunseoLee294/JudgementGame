@@ -66,8 +66,9 @@ public class DialogueDisplay : MonoBehaviour
             }
         }
 
-        // 재생 헤드가 새 줄에 처음 진입하는 순간 마커를 영구 해제
-        if (currentIndex >= 0 && !revealedLines.Contains(currentIndex))
+        // 재생 헤드가 새 줄에 처음 진입하는 순간, 해당 섹션이 해금된 경우에만 마커를 영구 해제
+        if (currentIndex >= 0 && !revealedLines.Contains(currentIndex)
+            && GameManager.Instance.IsTimeUnlocked(subtitleData.lines[currentIndex].startTime))
         {
             revealedLines.Add(currentIndex);
             if (currentIndex < lineTexts.Count)
