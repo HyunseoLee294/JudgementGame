@@ -154,7 +154,6 @@ public class Recorder : MonoBehaviour, IInteractable
     {
         isRewinding = true;
         mainAudio.Pause();
-        mainAudio.time = 0f;
 
         // 되감기 효과음 재생
         if (rewindSfx != null && rewindSfx.clip != null)
@@ -173,7 +172,10 @@ public class Recorder : MonoBehaviour, IInteractable
         }
 
         // 메인 오디오 다시 재생
+        // 일시정지 상태에서 time을 0으로 세팅하면 Play()가 멈췄던 위치에서
+        // 재개해버리는 Unity 동작이 있어, 반드시 Play() 이후에 위치를 지정한다.
         mainAudio.Play();
+        mainAudio.time = 0f;
         isRewinding = false;
     }
 }
