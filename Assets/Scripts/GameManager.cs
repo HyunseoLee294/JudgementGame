@@ -192,7 +192,14 @@ public class GameManager : MonoBehaviour
         // UI가 열려 있으면 재생을 재개한 뒤 플래그를 해제해야
         // Recorder.Update()가 isPlaying=true를 보고 RewindRoutine을 추가로 시작하지 않는다.
         if (!judgmentStarting && uiOpen)
+        {
+            // PlayTrailingSkipOrRewindSfx가 정해둔 재생 위치(0 또는 다음 해금 구간).
+            // 일시정지 상태에서 time을 세팅한 뒤 Play()하면 멈췄던 위치에서 재개해버리는
+            // Unity 동작이 있어, Play() 직후 위치를 다시 지정해 의도한 지점으로 맞춘다.
+            float resumeTime = mainAudio.time;
             mainAudio.Play();
+            mainAudio.time = resumeTime;
+        }
         else if (!judgmentStarting && !uiOpen && mainAudio.isPlaying)
             mainAudio.Pause();
 
