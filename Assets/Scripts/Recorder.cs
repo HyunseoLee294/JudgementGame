@@ -119,6 +119,13 @@ public class Recorder : MonoBehaviour, IInteractable
         skipSfx.Play();
         yield return new WaitForSeconds(skipSfx.clip.length);
 
+        // 대기 중 UnlockRoutine이 시작됐으면 간섭하지 않고 종료
+        if (GameManager.Instance != null && GameManager.Instance.isPlayingUnlockSection)
+        {
+            isSkipping = false;
+            yield break;
+        }
+
         // 다음 해금 구간 찾기
         float nextTime = GameManager.Instance.GetNextUnlockedTime(mainAudio.time);
 
@@ -142,12 +149,19 @@ public class Recorder : MonoBehaviour, IInteractable
         isRewinding = true;
         mainAudio.Pause();
         mainAudio.time = 0f;
-    
+
         // 되감기 효과음 재생
         rewindSfx.Play();
 
         // 효과음이 끝날 때까지 대기
         yield return new WaitForSeconds(rewindSfx.clip.length);
+
+        // 대기 중 UnlockRoutine이 시작됐으면 간섭하지 않고 종료
+        if (GameManager.Instance != null && GameManager.Instance.isPlayingUnlockSection)
+        {
+            isRewinding = false;
+            yield break;
+        }
 
         // 메인 오디오 다시 재생
         mainAudio.Play();
