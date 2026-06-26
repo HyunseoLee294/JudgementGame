@@ -157,7 +157,7 @@ MonoBehaviour:
   dialogueData: {fileID: 11400000, guid: 78de8c766ba6b324da58e677dadea01d, type: 2}
   endingMusic: {fileID: 11672400}
   judgmentThresholds: 01000000030000000500000007000000
-  delayBeforeJudgment: 0.1
+  delayBeforeJudgment: 0.05
 --- !u!4 &11672399
 Transform:
   m_ObjectHideFlags: 0
