@@ -11,6 +11,8 @@ public class DialogueDisplay : MonoBehaviour
 
     private List<TextMeshProUGUI> lineTexts = new List<TextMeshProUGUI>();
     private int lastHighlightedIndex = -1;
+    // 한 번이라도 재생된 줄의 인덱스를 영구 보관 — RefreshDialogue()에서 절대 초기화하지 않음
+    private HashSet<int> revealedLines = new HashSet<int>();
 
     public void RefreshDialogue()
     {
@@ -28,14 +30,14 @@ public class DialogueDisplay : MonoBehaviour
             GameObject lineObj = Instantiate(dialogueLinePrefab, contentParent);
             TextMeshProUGUI tmp = lineObj.GetComponent<TextMeshProUGUI>();
 
-            if (GameManager.Instance.IsTimeUnlocked(line.startTime))
+            if (revealedLines.Contains(i))
             {
-                // 해금된 대사: 정상 표시
+                // 이미 재생된 줄: 정상 표시
                 tmp.text = line.speaker + "      " + line.text;
             }
             else
             {
-                // 해금 안 된 대사: ??? + 검정 네모
+                // 아직 재생 안 된 줄: 마커로 가림
                 tmp.text = "???   <mark=#FFFFFFFF>" + line.text + "</mark>";
             }
 
@@ -61,6 +63,17 @@ public class DialogueDisplay : MonoBehaviour
             else
             {
                 break;
+            }
+        }
+
+        // 재생 헤드가 새 줄에 처음 진입하는 순간 마커를 영구 해제
+        if (currentIndex >= 0 && !revealedLines.Contains(currentIndex))
+        {
+            revealedLines.Add(currentIndex);
+            if (currentIndex < lineTexts.Count)
+            {
+                SubtitleLine line = subtitleData.lines[currentIndex];
+                lineTexts[currentIndex].text = line.speaker + "      " + line.text;
             }
         }
 
