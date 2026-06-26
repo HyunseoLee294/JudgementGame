@@ -224,9 +224,9 @@ public class GameManager : MonoBehaviour
             }
 
             float nextTime = GetNextUnlockedTime(sectionEndTime);
-            if (nextTime >= 0)
+            if (nextTime >= 0 && IsAdjacentToSection(sectionEndTime, nextTime))
             {
-                // 이어서 들을 수 있는 해금된 구간이 있으면 그 시작점에 정지 (되감기 불필요)
+                // 바로 인접한 해금 구간이 있으면 그 시작점에 정지 (되감기 불필요)
                 mainAudio.time = nextTime;
                 yield break;
             }
@@ -280,6 +280,24 @@ public class GameManager : MonoBehaviour
             {
                 return IsSectionUnlocked(section.sectionId);
             }
+        }
+        return false;
+    }
+
+    // sectionEndTime이 속한 섹션의 끝과 nextSectionStart가 같은지 확인
+    // (UnlockRoutine 미리보기 후 멀리 떨어진 섹션으로 잘못 점프하는 것을 방지)
+    bool IsAdjacentToSection(float sectionEndTime, float nextSectionStart)
+    {
+        foreach (var section in subtitleData.sections)
+        {
+            bool afterStart = sectionEndTime >= section.startTime;
+            float end = section.endTime < 0
+                ? (mainAudio.clip != null ? mainAudio.clip.length : section.startTime)
+                : section.endTime;
+            bool beforeEnd = sectionEndTime <= end + 0.05f;
+
+            if (afterStart && beforeEnd)
+                return Mathf.Abs(end - nextSectionStart) < 0.05f;
         }
         return false;
     }
