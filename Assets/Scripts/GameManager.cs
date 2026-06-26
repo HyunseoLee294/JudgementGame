@@ -168,8 +168,6 @@ public class GameManager : MonoBehaviour
         while (mainAudio.isPlaying && mainAudio.time < endTime)
             yield return null;
 
-        isPlayingUnlockSection = false;
-
         // 판단 페이즈가 시작되는 경우에는 오디오를 그대로 둠
         // (TriggerJudgment가 0.3초 뒤 UI를 ForceOpen해서 흐름을 이어감)
         bool judgmentStarting = JudgeManager.Instance != null
@@ -179,6 +177,8 @@ public class GameManager : MonoBehaviour
              || JudgeManager.Instance.Phase == GamePhase.Judgment4);
 
         // 이 구간 뒤에 원래 스킵/되감기 사운드가 재생될 차례였다면, 멈추기 전에 그것까지 재생
+        // isPlayingUnlockSection은 이 처리가 끝난 뒤 해제해야 Recorder.Update()가
+        // 중간에 RewindRoutine을 중복 실행하지 않는다.
         if (!judgmentStarting)
         {
             yield return PlayTrailingSkipOrRewindSfx(endTime);
@@ -189,10 +189,14 @@ public class GameManager : MonoBehaviour
             && recorder.recorderUI.recorderPanel != null
             && recorder.recorderUI.recorderPanel.activeSelf;
 
-        if (!judgmentStarting && !uiOpen && mainAudio.isPlaying)
-        {
+        // UI가 열려 있으면 재생을 재개한 뒤 플래그를 해제해야
+        // Recorder.Update()가 isPlaying=true를 보고 RewindRoutine을 추가로 시작하지 않는다.
+        if (!judgmentStarting && uiOpen)
+            mainAudio.Play();
+        else if (!judgmentStarting && !uiOpen && mainAudio.isPlaying)
             mainAudio.Pause();
-        }
+
+        isPlayingUnlockSection = false;
     }
 
     // 단서로 해금된 구간 재생이 끝난 시점 기준으로, 평소 녹음기 재생 중이었다면

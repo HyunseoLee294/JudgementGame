@@ -44,6 +44,9 @@ public class Recorder : MonoBehaviour, IInteractable
 
         if (isRewinding || isSkipping) return;
 
+        bool playingUnlock = GameManager.Instance != null && GameManager.Instance.isPlayingUnlockSection;
+        if (playingUnlock) return;
+
         // 한 번이라도 재생이 시작됐는데, 지금은 재생 중이 아니면 → 끝난 것
         if (hasStarted && !mainAudio.isPlaying)
         {
