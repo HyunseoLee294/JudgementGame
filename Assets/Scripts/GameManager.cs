@@ -47,8 +47,13 @@ public class GameManager : MonoBehaviour
     {
         UpdatePlayingNewSectionText();
 
-        if (mainAudio == null || !mainAudio.isPlaying) return;
+        if (mainAudio == null || mainAudio.clip == null) return;
 
+        // isPlaying으로 게이트하지 않는다. Recorder 쪽 스킵/되감기 코루틴이
+        // 같은 프레임에 먼저 실행되어 mainAudio.Pause()를 걸어버려도,
+        // Pause()는 time을 바꾸지 않으므로 여기서 여전히 방금 재생된
+        // 위치를 읽고 완주 판정을 내릴 수 있다. (time이 0/다음 구간으로
+        // 실제로 재설정되는 건 되감기 사운드 대기 이후라 몇 프레임 뒤의 일이다.)
         float t = mainAudio.time;
         foreach (var section in subtitleData.sections)
         {
