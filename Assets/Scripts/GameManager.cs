@@ -320,7 +320,7 @@ public class GameManager : MonoBehaviour
         foreach (var section in subtitleData.sections)
         {
             if (!IsSectionUnlocked(section.sectionId)) continue;
-            if (section.startTime <= currentTime) continue;
+            if (section.startTime < currentTime) continue;
 
             // 가장 가까운 해금 구간 찾기
             if (nextTime < 0 || section.startTime < nextTime)
