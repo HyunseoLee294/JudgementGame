@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     public DialogueDisplay dialogueDisplay;
     public PlaybackBarDisplay playbackBarDisplay;
 
-    private int lastReportedSection = -1;
     private Coroutine notificationRoutine;
     private Coroutine unlockRoutineHandle;
 
@@ -53,24 +52,20 @@ public class GameManager : MonoBehaviour
         float t = mainAudio.time;
         foreach (var section in subtitleData.sections)
         {
-            bool inSection = t >= section.startTime &&
-                             (section.endTime < 0 || t < section.endTime);
-            if (!inSection) continue;
-            if (!IsSectionUnlocked(section.sectionId)) return;
+            if (!IsSectionUnlocked(section.sectionId)) continue;
+            if (JudgeManager.Instance == null || JudgeManager.Instance.IsSectionFirstPlayed(section.sectionId)) continue;
 
             float end = section.endTime < 0
                 ? (mainAudio.clip != null ? mainAudio.clip.length : section.startTime)
                 : section.endTime;
 
-            if (t >= end - 0.05f && lastReportedSection != section.sectionId)
+            // "지금 이 구간 안에 있는가"가 아니라 "이 구간 끝을 이미 지났는가"만 확인.
+            // 렉으로 한 프레임에 시간이 크게 튀어 구간 경계를 스치지도 못하고
+            // 지나가버려도 놓치지 않는다.
+            if (t >= end - 0.05f)
             {
-                lastReportedSection = section.sectionId;
-                if (JudgeManager.Instance != null)
-                {
-                    JudgeManager.Instance.NotifySectionFirstPlayed(section.sectionId);
-                }
+                JudgeManager.Instance.NotifySectionFirstPlayed(section.sectionId);
             }
-            return;
         }
     }
 
