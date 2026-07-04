@@ -417,7 +417,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "\uC81C\uC791 \uC774\uD604\uC11C\n\uB85C\uACE0 \uAE40\uC120\uD61C\n\uB179\uC74C
-    \uC704\uC131\uC5F0\n       \uC774\uC740\uC11C"
+    \uC704\uC131\uC5F0\n        \uC774\uC740\uC11C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 870ddb5b130f6d44b88c095cabf97391, type: 2}
   m_sharedMaterial: {fileID: -2928629668298603773, guid: 870ddb5b130f6d44b88c095cabf97391, type: 2}
@@ -450,7 +450,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
